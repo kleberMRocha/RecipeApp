@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header :links="links" />
+    <BackgroundImg>
+        <img src="./assets/logo.png" alt="logo" />
+        <InputSearch placeHolder="Search a meal" />
+    </BackgroundImg>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import InputSearch from './components/InputSearch.vue';
+import Header from './components/Header.vue';
+import BackgroundImg from './components/BackgroundImg.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    InputSearch,
+    Header,
+    BackgroundImg
+  },
+  data() {
+    return {
+      links: [
+        {
+          title: 'Recipes Api',
+          url: 'https://www.themealdb.com/api.php',
+          icon:'link'
+        },
+        {
+          title: 'GitHub',
+          url: 'https://github.com/kleberMRocha',
+          icon:'link'
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import url("./global/reset.css");
 </style>
