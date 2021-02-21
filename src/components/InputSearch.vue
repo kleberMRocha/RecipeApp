@@ -1,11 +1,15 @@
 <template>
   <div class="search" :class="{ 'focused': focused }">
-    <font-awesome-icon icon="search"  :class="{ 'focusedIcon': focused }" />
-
+    <font-awesome-icon icon="search" 
+     :class="{ 'focusedIcon': focused || filled  }  " 
+     
+     />
     <input
       type="search"
       @focus="focused = true"
       @blur="focused = false"
+      @input="searchValue = $event.target.value"
+      :value="searchValue"
       :placeholder="placeHolder"
     />
   </div>
@@ -17,7 +21,13 @@ export default {
   data() {
     return {
       focused: false,
+      searchValue: '',
     };
+  },
+  computed:{
+  filled: function(){
+    return !!this.searchValue.length
+  },
   },
   props: {
     placeHolder: String,
@@ -27,7 +37,8 @@ export default {
 
 <style scoped>
 input {
-  width: 95%;
+  width: 80%;
+  margin:0 auto;
   height: 50px;
   border: none;
   background: none;

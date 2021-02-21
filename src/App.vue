@@ -2,8 +2,8 @@
   <div id="app">
     <Header :links="links" />
     <BackgroundImg>
-        <img src="./assets/logo.png" alt="logo" />
-        <InputSearch placeHolder="Search a meal" />
+          <img src="./assets/logo.png" alt="logo" />
+          <InputSearch placeHolder="Search a meal" />
     </BackgroundImg>
   </div>
 </template>
@@ -36,9 +36,11 @@ export default {
       ],
     };
   },
+
 };
 </script>
 
 <style>
 @import url("./global/reset.css");
+
 </style>
