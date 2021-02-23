@@ -26,11 +26,11 @@ nav {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  background: #f0a500;
-  height: 100%;
+  background: #ffffff;
+  opacity: .9;
   border-bottom: 2px solid #e45826;
   font-weight: bold;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
 }
 nav img {
   width: 50px;
@@ -57,7 +57,7 @@ nav ul li svg {
 nav ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   margin-left: auto;
   padding: 0 5%;
@@ -70,6 +70,7 @@ nav ul li {
   align-items: center;
   margin: 5px;
   background: #ffffff;
+  border: 2px solid #e45826;
   height: 35px;
   width: 120px;
   border-radius: 15px;

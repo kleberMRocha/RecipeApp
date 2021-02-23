@@ -8,6 +8,7 @@
       type="search"
       @focus="focused = true"
       @blur="focused = false"
+      @keydown="$emit('getSearchValue', searchValue)"
       @input="searchValue = $event.target.value"
       :value="searchValue"
       :placeholder="placeHolder"
@@ -43,6 +44,7 @@ input {
   border: none;
   background: none;
   outline: none;
+  color: #e45826;
 }
 .search {
   background: #ffffff;
@@ -51,8 +53,9 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px auto;
+  margin: 8px auto;
   box-shadow: 2px 5px 3px -5px black;
+  border-bottom: 2px solid #ffffff;
 }
 .focused {
   border-bottom: 2px solid #e45826;
