@@ -59,7 +59,7 @@ export default {
   cursor: pointer;
   position: relative;
   animation: slidein ease-in-out 1s;
-  max-height: 200px;
+  max-height: 185px;
 }
 
 .containerFood:hover {
@@ -98,12 +98,17 @@ h3 {
   outline: none;
   background: none;
   border: none;
-  color: #ffffff;
+  color: #aaaaaa;
   font-size: 85px;
   cursor: pointer;
 }
+.playVideo:hover{
+  transition: color .5s;
+  color: #ffffff;
+}
 
 .favButton {
+  margin-top: 2px;
   font-size: 20px;
   color: #ffffff;
   border: none;
@@ -114,9 +119,14 @@ h3 {
   cursor: pointer;
 
 }
+.favButton:hover{
+  color: tomato;
+  transition: .5s;
+}
 
 .alternativeName {
   margin-top: 25px;
+  font-weight: bold;
   outline: none;
   background: none;
   border: none;

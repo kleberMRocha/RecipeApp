@@ -28,7 +28,7 @@
     <div v-if="info" class="info">
       {{ info }}
     </div>
-    <ul>
+    <ul class="recipesContainer">
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
         <FoodCard :meal="meal" v-on:showModal="showModal" />
       </li>
@@ -76,11 +76,13 @@ export default {
   methods: {
     getSearchValues: function(search) {
 
+      console.log(search);
+      console.log(this.meals);
+
       if(search.length > 0 && !this.meals){
-        this.info = 'Could not find recipe with this name';
+       this.info = 'carregando ...';
       }
 
-    
       if (!search.length) {
         this.meals = null;
         return;
@@ -91,7 +93,9 @@ export default {
         this.meals = response.data.meals;
       })
       .finally(() => {
-        this.meals ? this.info = '' : this.info
+        this.meals 
+        ? this.info = '' 
+        : this.info = 'Could not find recipe with this name'
       });
       
     },
@@ -121,7 +125,7 @@ export default {
 }
 
 .container {
-  background: #96969657;
+  background: #c0c0c0de;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -132,27 +136,17 @@ export default {
   margin: 25px auto;
   position: relative;
 }
-.container::after {
-  content: '';
-  background: inherit;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  box-shadow: inset 0 0 0 3000px #c9c9c918;
-  filter: blur(10px);
-  z-index: -99999;
-}
 
-ul {
+.recipesContainer{
   display: flex;
+  width: 80%;
+  margin: 0 auto;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
 
-ul li {
+.recipesContainer li {
   margin: 2px;
 }
 
