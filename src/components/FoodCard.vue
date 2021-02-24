@@ -59,6 +59,7 @@ export default {
   cursor: pointer;
   position: relative;
   animation: slidein ease-in-out 1s;
+  max-height: 200px;
 }
 
 .containerFood:hover {

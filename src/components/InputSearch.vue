@@ -8,7 +8,7 @@
       type="search"
       @focus="focused = true"
       @blur="focused = false"
-      @keydown="$emit('getSearchValue', searchValue)"
+      @keypress="$emit('getSearchValue', searchValue)"
       @input="searchValue = $event.target.value"
       :value="searchValue"
       :placeholder="placeHolder"

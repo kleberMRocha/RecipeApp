@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div class="modal" 
-    :class="{ 'modalVisible': !modalVisible }"
-    @click="closeModal"
+    <div
+      class="modal"
+      :class="{ modalVisible: !modalVisible }"
+      @click="closeModal"
     >
-
       <iframe
         id="ytplayer"
         type="text/html"
@@ -25,12 +25,12 @@
         v-on:getSearchValue="getSearchValues"
       />
     </div>
-
+    <div v-if="info" class="info">
+      {{ info }}
+    </div>
     <ul>
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
-        <FoodCard :meal="meal"
-         v-on:showModal="showModal"
-         />
+        <FoodCard :meal="meal" v-on:showModal="showModal" />
       </li>
     </ul>
   </div>
@@ -56,8 +56,9 @@ export default {
   data() {
     return {
       meals: null,
-      modalVisible:false,
-      selectMeal:'VVnZd8A84z4',
+      info: '',
+      modalVisible: false,
+      selectMeal: 'VVnZd8A84z4',
       links: [
         {
           title: 'Recipes Api',
@@ -74,18 +75,34 @@ export default {
   },
   methods: {
     getSearchValues: function(search) {
-      axios.get(`search.php?s=${search}`).then((response) => {
+
+      if(search.length > 0 && !this.meals){
+        this.info = 'Could not find recipe with this name';
+      }
+
+    
+      if (!search.length) {
+        this.meals = null;
+        return;
+      }
+
+      axios.get(`search.php?s=${search}`)
+      .then((response) => {
         this.meals = response.data.meals;
+      })
+      .finally(() => {
+        this.meals ? this.info = '' : this.info
       });
+      
     },
-      showModal: function(youtubeId) {
+    showModal: function(youtubeId) {
       this.selectMeal = youtubeId;
       this.modalVisible = true;
     },
-    closeModal: function(){
+    closeModal: function() {
       this.modalVisible = false;
       this.selectMeal = '';
-    }
+    },
   },
 };
 </script>
@@ -95,11 +112,11 @@ export default {
 
 @keyframes showScale {
   from {
-    transform: rotate(50dg)
+    transform: rotate(50dg);
   }
 
   to {
-   transform: rotate(5dg)
+    transform: rotate(5dg);
   }
 }
 
@@ -150,7 +167,7 @@ h5 {
   text-align: center;
 }
 
-.modal{
+.modal {
   position: relative;
   background-color: #000000a4;
   display: flex;
@@ -164,17 +181,25 @@ h5 {
   animation: showScale 1s infinite;
   z-index: 9999;
 }
-  .modalVisible{
-     display: none;
-  }
+.modalVisible {
+  display: none;
+}
 
-.closeButton{
+.closeButton {
   position: absolute;
   z-index: 99999;
   border-radius: 30%;
   font-size: 20px;
-  right:300px;
+  right: 300px;
+}
 
-
+.info{
+  text-align: center;
+  background-color: white;
+  color: tomato;
+  padding: 2px;
+  max-width: 50%;
+  margin: 0 auto;
+  font-weight: bold;
 }
 </style>
