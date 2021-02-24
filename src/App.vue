@@ -23,6 +23,7 @@
       <InputSearch
         placeHolder="Search a meal"
         v-on:getSearchValue="getSearchValues"
+        class="inputSearchMain"
       />
     </div>
     <div v-if="info" class="info">
@@ -80,7 +81,7 @@ export default {
       console.log(this.meals);
 
       if(search.length > 0 && !this.meals){
-       this.info = 'carregando ...';
+       this.info = 'Loading ...';
       }
 
       if (!search.length) {
@@ -125,7 +126,7 @@ export default {
 }
 
 .container {
-  background: #c0c0c0de;
+  background: #f0f0f063;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -158,6 +159,7 @@ h5 {
   border-bottom: 2px solid #e45826;
   color: #7a280a;
   font-size: 18px;
+  margin-bottom: 40px;
   text-align: center;
 }
 
@@ -195,5 +197,9 @@ h5 {
   max-width: 50%;
   margin: 0 auto;
   font-weight: bold;
+}
+.inputSearchMain{
+  position: absolute;
+  bottom: -30px;
 }
 </style>

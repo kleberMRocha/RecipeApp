@@ -26,8 +26,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  background: #ffffff;
-  opacity: .9;
+  background: #c0c0c063;
   border-bottom: 2px solid #e45826;
   font-weight: bold;
   padding-bottom: 3px;
