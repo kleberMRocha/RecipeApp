@@ -13,6 +13,12 @@ that will make them easy to follow.
 
 - [The MealDB API](https://www.themealdb.com/api.php) 
 
+## features to be implemented
+
+[] The user should be able to favorite a recipe
+[] The user should be able to list the favorite recipes
+[] Improvements in animations
+[] Alternatives to broken video links
 
 ## Project setup
 ```
