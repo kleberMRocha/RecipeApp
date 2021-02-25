@@ -1,7 +1,6 @@
 # 🍳 Recipeapp 
 
-<p />
-<div align="center">
+<p>
   <img src="https://github.com/kleberMRocha/RecipeApp/blob/master/screenshots/Recipe%20App.gif" alt="RecipeApp" />
 </p>
 
