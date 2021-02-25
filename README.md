@@ -1,4 +1,15 @@
-# recipeapp
+# 🍳 Recipeapp 
+
+
+# Recipe
+
+The objective of the Recipe app is to help the user manage recipes in a way
+that will make them easy to follow. 
+
+## Resources
+
+- [The MealDB API](https://www.themealdb.com/api.php) 
+
 
 ## Project setup
 ```
@@ -20,5 +31,4 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+

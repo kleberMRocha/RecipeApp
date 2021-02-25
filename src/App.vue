@@ -76,10 +76,7 @@ export default {
   },
   methods: {
     getSearchValues: function(search) {
-
-      console.log(search);
-      console.log(this.meals);
-
+      
       if(search.length > 0 && !this.meals){
        this.info = 'Loading ...';
       }
