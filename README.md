@@ -15,10 +15,10 @@ that will make them easy to follow.
 
 ## features to be implemented
 
-[] The user should be able to favorite a recipe
-[] The user should be able to list the favorite recipes
-[] Improvements in animations
-[] Alternatives to broken video links
+- [] The user should be able to favorite a recipe
+- [] The user should be able to list the favorite recipes
+- [] Animation Improvements
+- [] Alternatives to broken video links
 
 ## Project setup
 ```
