@@ -71,7 +71,9 @@ export default {
       return splitedUrl[1].replace('?v=', '');
     },
      isFav: function(){
-      return this.favRecipes.find(recipe => recipe.idMeal === this.meal.idMeal);
+      return this.favRecipes 
+      ? this.favRecipes.find(recipe => recipe.idMeal === this.meal.idMeal)
+      : false
     }
   },
 };
