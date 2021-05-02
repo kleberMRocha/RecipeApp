@@ -1,10 +1,12 @@
 <template>
   <nav>
-    <img src="../assets/logo.png" alt="logo" />
+    <router-link to="/">
+       <img src="../assets/logo.png" alt="logo" />
+    </router-link>
     <ul>
       <li v-for="(link, index) in links" :key="`${index}-${link}`">
         <font-awesome-icon :icon="link.icon" />
-        <a :href="link.url" target="_blank" rel="noopener noreferrer">{{
+        <a :href="link.url"  rel="noopener noreferrer">{{
           link.title
         }}</a>
       </li>
@@ -40,7 +42,7 @@ nav img {
     display: none;
   }
 }
-nav a {
+nav a:not(:first-child) {
   width: 100%;
   text-align: center;
   color: #4a3933;

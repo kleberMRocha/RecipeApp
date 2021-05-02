@@ -18,7 +18,7 @@
     <div class="container">
       <img src="./assets/logo.png" alt="logo" class="logo" />
       <h5>
-        Search Recipes from Around the World
+        Search Recipes from Around the World 
       </h5>
       <InputSearch
         placeHolder="Search a meal"
@@ -30,6 +30,7 @@
       {{ info }}
     </div>
     <ul class="recipesContainer">
+       <router-view></router-view>
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
         <FoodCard :meal="meal" v-on:showModal="showModal" />
       </li>
@@ -41,6 +42,8 @@
 import InputSearch from './components/InputSearch.vue';
 import Header from './components/Header.vue';
 import FoodCard from './components/FoodCard.vue';
+import modal from '../src/mixin/modal';
+import { mapState } from 'vuex';
 import Axios from 'axios';
 
 const axios = Axios.create({
@@ -58,22 +61,9 @@ export default {
     return {
       meals: null,
       info: '',
-      modalVisible: false,
-      selectMeal: 'VVnZd8A84z4',
-      links: [
-        {
-          title: 'Recipes Api',
-          url: 'https://www.themealdb.com/api.php',
-          icon: 'link',
-        },
-        {
-          title: 'GitHub',
-          url: 'https://github.com/kleberMRocha',
-          icon: 'link',
-        },
-      ],
     };
   },
+  mixins:[modal],
   methods: {
     getSearchValues: function(search) {
       
@@ -97,15 +87,14 @@ export default {
       });
       
     },
-    showModal: function(youtubeId) {
-      this.selectMeal = youtubeId;
-      this.modalVisible = true;
-    },
-    closeModal: function() {
-      this.modalVisible = false;
-      this.selectMeal = '';
-    },
   },
+  computed:{
+    ...mapState({
+      links: (state) => state.links,
+      modalVisible:(state) => state.modalVisible,
+      selectMeal: (state) => state.selectMeal,
+    })
+  }
 };
 </script>
 

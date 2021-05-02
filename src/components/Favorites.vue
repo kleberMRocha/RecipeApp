@@ -1,78 +1,42 @@
 <template>
-  <div class="containerFood">
-    <div class="options">
-      <button class="alternativeName">
-        {{ meal.strMeal }}
-      </button>
-      <button class="favButton" @click="saveFavRecipe(meal)" >
-        <font-awesome-icon :icon="isFavorited(isFav)"/>
-      </button>
-      <button class="playVideo" @click="$emit('showModal', youtubeId)">
-        <font-awesome-icon icon="play-circle" />
-      </button>
-    </div>
-    <img :src="meal.strMealThumb" :alt="meal.strMeal" />
-    <h3>{{ meal.strMeal }}</h3>
+  <div class="favContainer">
+  <h1 class="title-recipe">
+     {{
+      !meals 
+      ? 'You havent favored anything yet' 
+      : ' Your Favorite Recipes ♡'
+     }}
+  </h1>
+  <ul class="favList">
+   <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
+         <FoodCard :meal="meal" v-on:showModal="showModal" />
+      </li>
+  </ul>
+    
   </div>
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex';
+import {mapState} from 'vuex';
+import FoodCard from './FoodCard';
+import modal from '../mixin/modal';
+
 export default {
   props: {
     meal: Object,
   },
-  methods:{
-    ...mapMutations(['updateFavMeals']),
-    saveFavRecipe(value){
-
-      if(this.isFav){
-       const favRecipes = JSON.parse(localStorage.getItem('@RecipesApp'));
-       const isfavoriteyet = favRecipes.filter(fav => fav.idMeal !== value.idMeal);
-       localStorage.setItem('@RecipesApp',JSON.stringify(isfavoriteyet));
-       this.updateFavMeals(isfavoriteyet);
-
-       return;
-
-      }
-       value.fav = true
-
-      const favRecipes = JSON.parse(localStorage.getItem('@RecipesApp'));
-
-      const isfavoriteyet = favRecipes 
-      ? favRecipes.find(fav => fav.idMeal ===  value.idMeal) 
-      : null;
-      
-
-      if(isfavoriteyet){
-        return;
-      }
-
-       if(favRecipes){
-         const newFavRecipes = [value,...favRecipes];
-         localStorage.setItem('@RecipesApp',JSON.stringify(newFavRecipes));
-         this.updateFavMeals(newFavRecipes);
-       }else{
-         localStorage.setItem('@RecipesApp',JSON.stringify([value]));
-         this.updateFavMeals([value]);
-       }
-       
-    },
-    isFavorited(isFav){
-    return isFav ? 'heart-broken' : 'heart'
-    }
+  components:{
+    FoodCard
   },
+  mixins:[modal],
   computed: {
     ...mapState({
-      favRecipes: state  => state.favMeals
+      meals: (state) => (state.favMeals)
     }),
     youtubeId: function() {
       const splitedUrl = this.meal.strYoutube.split('watch');
       return splitedUrl[1].replace('?v=', '');
     },
-     isFav: function(){
-      return this.favRecipes.find(recipe => recipe.idMeal === this.meal.idMeal);
-    }
   },
 };
 </script>
@@ -107,6 +71,14 @@ export default {
   position: relative;
   animation: slidein ease-in-out 1s;
   max-height: 185px;
+}
+
+.favContainer{
+    background-color: #e46f41;
+    text-align: center;
+    width: 100%;
+    border-radius: 16px;
+    padding: 16px;
 }
 
 .containerFood:hover {
@@ -180,5 +152,25 @@ h3 {
   color: #ffffff;
   font-size: 15px;
   cursor: pointer;
+}
+
+.title-recipe{
+  width: 100%;
+  color: white;
+  font: 20px;
+  font-weight: bold;
+  margin: 16px;
+}
+
+.favList{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.favList img{
+  width: 150px;
+  border-radius: 16px;
 }
 </style>
