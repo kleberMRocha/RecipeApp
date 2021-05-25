@@ -74,7 +74,10 @@ export default {
 }
 
 .favContainer{
+    background: url('../assets/foodbg.png');
     background-color: #e46f41;
+    border: white solid 4px;
+    margin: 8px;
     text-align: center;
     width: 100%;
     border-radius: 16px;

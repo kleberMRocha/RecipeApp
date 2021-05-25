@@ -12,7 +12,7 @@
       </button>
     </div>
     <img :src="meal.strMealThumb" :alt="meal.strMeal" />
-    <h3>{{ meal.strMeal }}</h3>
+    <h3 >{{getName(meal)}}</h3>
   </div>
 </template>
 
@@ -60,7 +60,13 @@ export default {
     },
     isFavorited(isFav){
     return isFav ? 'heart-broken' : 'heart'
-    }
+    },
+     getName: function(meal){
+     return  meal.strMeal.length > 20 ? 
+     `${meal.strMeal.substring(0,20)} ...`
+     : meal.strMeal 
+
+    },
   },
   computed: {
     ...mapState({
@@ -101,6 +107,7 @@ export default {
   background: #31313181;
   width: 150px;
   height: 100%;
+  max-height: 300px;
   overflow: hidden;
   color: #ffffff;
   font-weight: bold;

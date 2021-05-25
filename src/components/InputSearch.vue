@@ -38,6 +38,7 @@ export default {
 
 <style scoped>
 input {
+  z-index: 999;
   width: 80%;
   margin:0 auto;
   height: 50px;

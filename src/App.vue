@@ -13,6 +13,7 @@
         :src="`https://www.youtube.com/embed/${selectMeal}`"
         frameborder="0"
       ></iframe>
+      
     </div>
     <Header :links="links" />
     <div class="container">
@@ -30,10 +31,13 @@
       {{ info }}
     </div>
     <ul class="recipesContainer">
+    <Loader :visible="isLoading" />
        <router-view></router-view>
+
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
         <FoodCard :meal="meal" v-on:showModal="showModal" />
       </li>
+
     </ul>
   </div>
 </template>
@@ -42,6 +46,7 @@
 import InputSearch from './components/InputSearch.vue';
 import Header from './components/Header.vue';
 import FoodCard from './components/FoodCard.vue';
+import Loader from './components/Loader';
 import modal from '../src/mixin/modal';
 import { mapState } from 'vuex';
 import Axios from 'axios';
@@ -56,21 +61,21 @@ export default {
     InputSearch,
     Header,
     FoodCard,
+    Loader
   },
   data() {
     return {
       meals: null,
       info: '',
+      isLoading: false,
     };
   },
   mixins:[modal],
   methods: {
     getSearchValues: function(search) {
-      
-      if(search.length > 0 && !this.meals){
-       this.info = 'Loading ...';
-      }
+      if(search.length < 2) return
 
+      this.isLoading = true;
       if (!search.length) {
         this.meals = null;
         return;
@@ -78,13 +83,18 @@ export default {
 
       axios.get(`search.php?s=${search}`)
       .then((response) => {
-        this.meals = response.data.meals;
-      })
-      .finally(() => {
-        this.meals 
-        ? this.info = '' 
-        : this.info = 'Could not find recipe with this name'
-      });
+        this.meals = null;
+        if(response.data.meals){
+          this.isLoading = false;
+          this.meals = response.data.meals;
+          this.info = '';
+          return;
+        }
+
+        this.isLoading = false 
+        this.info = 'Could not find recipe with this name'
+
+      }).catch(() => this.info = 'Houve um erro inesperado')
       
     },
   },
@@ -98,7 +108,7 @@ export default {
 };
 </script>
 
-<style>
+<style >
 @import url('./global/reset.css');
 
 @keyframes showScale {
@@ -108,6 +118,16 @@ export default {
 
   to {
     transform: rotate(5dg);
+  }
+}
+
+@keyframes entrance {
+  from {
+    opacity: 0;
+  }
+
+  to {
+     opacity: 1;
   }
 }
 
@@ -160,9 +180,10 @@ h5 {
   position: fixed;
   width: 100%;
   height: 100%;
-  animation: showScale 1s infinite;
+  animation: entrance .5s ease-in;
   z-index: 9999;
 }
+
 .modalVisible {
   display: none;
 }
