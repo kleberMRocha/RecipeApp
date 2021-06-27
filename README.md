@@ -12,6 +12,7 @@ that will make them easy to follow.
 ## Resources
 
 - [The MealDB API](https://www.themealdb.com/api.php) 
+- [Figma - Layout](https://www.figma.com/file/flKshqHmlxXvlD89gAQxro/RecipeApp?node-id=0%3A1)
 
 ## features to be implemented
 
