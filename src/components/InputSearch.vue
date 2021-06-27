@@ -45,27 +45,27 @@ input {
   border: none;
   background: none;
   outline: none;
-  color: #e45826;
+  color: #E36153;
 }
 .search {
   background: #ffffff;
   border-radius: 15px;
-  width: 70.5%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 8px auto;
   box-shadow: 2px 5px 3px -5px black;
-  border-bottom: 2px solid #ffffff;
+  border: 2px solid #D0C4C2;
 }
 .focused {
-  border-bottom: 2px solid #e45826;
-}
-.focusedIcon {
-  color: #e45826;
+  border: 2px solid #E36153;
 }
 .search svg {
   margin-right: auto;
   margin-left: 15px;
+}
+.focusedIcon {
+  color: #E36153;
 }
 </style>

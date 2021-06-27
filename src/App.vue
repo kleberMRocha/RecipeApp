@@ -15,12 +15,17 @@
       ></iframe>
       
     </div>
-    <Header :links="links" />
     <div class="container">
-      <img src="./assets/logo.png" alt="logo" class="logo" />
-      <h5>
-        Search Recipes from Around the World 
-      </h5>
+        <Header :links="links" />
+        <main>
+          <h5>
+          Search Recipes from Around the World 
+         </h5>
+
+        <img src="./assets/logo.svg" alt="logo" class="logo" />
+      
+        </main>
+  
       <InputSearch
         placeHolder="Search a meal"
         v-on:getSearchValue="getSearchValues"
@@ -132,16 +137,22 @@ export default {
 }
 
 .container {
-  background: #f0f0f063;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 80%;
-  border-radius: 15px;
-  border-bottom: 2px solid #e45826;
-  margin: 25px auto;
   position: relative;
+  background: #689F77;
+    margin-bottom: 24px;
+}
+
+main{
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.inputSearchMain{
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
 }
 
 .recipesContainer{
@@ -158,19 +169,30 @@ export default {
 }
 
 .logo {
-  width: 220px;
+  width: 250px;
 }
 
 h5 {
-  border-bottom: 2px solid #e45826;
-  color: #7a280a;
-  font-size: 18px;
-  margin-bottom: 40px;
-  text-align: center;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 42px;
+  text-align: left;
+  max-width: 500px;
+  line-height: 50px;
+}
+
+@media(max-width: 800px){
+  h5 {
+  font-size: 20px;
+  text-align: left;
+  line-height: 25px;
+  margin: 8px;
+}
 }
 
 .modal {
   position: relative;
+  z-index: 999999;
   background-color: #000000a4;
   display: flex;
   justify-content: center;
@@ -199,14 +221,11 @@ h5 {
 .info{
   text-align: center;
   background-color: white;
-  color: tomato;
-  padding: 2px;
+  color: #689F77;
   max-width: 50%;
-  margin: 0 auto;
   font-weight: bold;
+  margin: 90px auto;
+  padding: 16px
 }
-.inputSearchMain{
-  position: absolute;
-  bottom: -30px;
-}
+
 </style>

@@ -25,9 +25,9 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
+	font-family: 'Poppins', sans-serif;
 	line-height: 1;
-    font-family: sans-serif;
-    background:#e6d5b8 url(../assets/bg.jpg);
+    background:#E5E5E5;
 	background-size: cover ;
     background-attachment: fixed;
 }

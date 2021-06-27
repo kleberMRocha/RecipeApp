@@ -7,6 +7,12 @@ const store = new Vuex.Store({
     state: {
         links:[
             {
+              title: 'Home',
+              url: '/',
+              icon: 'home',
+              blank: true
+            },
+            {
               title: 'Recipes Api',
               url: 'https://www.themealdb.com/api.php',
               icon: 'link',
@@ -15,7 +21,7 @@ const store = new Vuex.Store({
             {
               title: 'GitHub',
               url: 'https://github.com/kleberMRocha',
-              icon: 'link',
+              icon: 'user',
               blank: true
             },
             {

@@ -1,18 +1,29 @@
+
+
 <template>
   <div class="containerFood">
-    <div class="options">
-      <button class="alternativeName">
-        {{ meal.strMeal }}
-      </button>
-      <button class="favButton" @click="saveFavRecipe(meal)" >
+
+  <div class="card-header">
+  <h3 >{{getName(meal)}}</h3>
+    <button class="favButton" @click="saveFavRecipe(meal)" >
         <font-awesome-icon :icon="isFavorited(isFav)"/>
-      </button>
+    </button>
+  </div>
+  
+  <div class="imgContainer">
+     <img :src="meal.strMealThumb" :alt="meal.strMeal" />
+  </div>
+  
+    <div class="options">
+  
       <button class="playVideo" @click="$emit('showModal', youtubeId)">
         <font-awesome-icon icon="play-circle" />
       </button>
+
     </div>
-    <img :src="meal.strMealThumb" :alt="meal.strMeal" />
-    <h3 >{{getName(meal)}}</h3>
+
+      
+   
   </div>
 </template>
 
@@ -25,29 +36,22 @@ export default {
   methods:{
     ...mapMutations(['updateFavMeals']),
     saveFavRecipe(value){
-
       if(this.isFav){
        const favRecipes = JSON.parse(localStorage.getItem('@RecipesApp'));
        const isfavoriteyet = favRecipes.filter(fav => fav.idMeal !== value.idMeal);
        localStorage.setItem('@RecipesApp',JSON.stringify(isfavoriteyet));
        this.updateFavMeals(isfavoriteyet);
-
        return;
-
       }
        value.fav = true
-
       const favRecipes = JSON.parse(localStorage.getItem('@RecipesApp'));
-
       const isfavoriteyet = favRecipes 
       ? favRecipes.find(fav => fav.idMeal ===  value.idMeal) 
       : null;
       
-
       if(isfavoriteyet){
         return;
       }
-
        if(favRecipes){
          const newFavRecipes = [value,...favRecipes];
          localStorage.setItem('@RecipesApp',JSON.stringify(newFavRecipes));
@@ -65,7 +69,6 @@ export default {
      return  meal.strMeal.length > 20 ? 
      `${meal.strMeal.substring(0,20)} ...`
      : meal.strMeal 
-
     },
   },
   computed: {
@@ -91,44 +94,60 @@ export default {
     transform: scale(0);
     opacity: 0;
   }
-
   to {
     transform: scale(1);
   }
 }
 
+.card-header{
+position: relative;
+display: flex;
+justify-content: space-around;
+width: 100%;
+}
 .containerFood {
+  position: relative;
   border-radius: 15px;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #31313181;
-  width: 150px;
-  height: 100%;
+  background: #FFFFFF;
+  width: 250px;
+  height: 300px;
   max-height: 300px;
+  max-width: 300px;
   overflow: hidden;
-  color: #ffffff;
+  color: #645a5a;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
   position: relative;
   animation: slidein ease-in-out 1s;
-  max-height: 185px;
+}
+.imgContainer{
+height: 240px;
+width: 100%;
+ object-fit: contain;
+}
+
+.imgContainer img{
+height: 240px;
+width: 100%;
 }
 
 .containerFood:hover {
   background-color: #313131;
   transition: background-color 0.5s;
+  -webkit-box-shadow: 3px 5px 7px 1px rgba(0,0,0,0.33); 
+  box-shadow: 3px 5px 7px 1px rgba(0,0,0,0.33);
 }
-
 .containerFood img {
   max-width: 100%;
   height: 100%;
   object-fit: fill;
 }
-
 .options {
   position: absolute;
   background-color: #00000098;
@@ -141,12 +160,10 @@ export default {
   cursor: pointer;
   opacity: 0;
 }
-
 .options:hover {
   opacity: 1;
   transition: 0.9s opacity;
 }
-
 h3 {
   margin: 8px;
 }
@@ -157,29 +174,26 @@ h3 {
   color: #aaaaaa;
   font-size: 85px;
   cursor: pointer;
+  margin: auto;
 }
 .playVideo:hover{
   transition: color .5s;
   color: #ffffff;
 }
-
 .favButton {
   margin-top: 2px;
   font-size: 20px;
-  color: #ffffff;
+  z-index: 1;
+  color: #C4C4C4;
   border: none;
   background: none;
   outline: none;
-  position: absolute;
-  left: 0;
   cursor: pointer;
-
 }
 .favButton:hover{
   color: tomato;
   transition: .5s;
 }
-
 .alternativeName {
   margin-top: 25px;
   font-weight: bold;

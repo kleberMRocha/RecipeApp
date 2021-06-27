@@ -1,12 +1,11 @@
 <template>
   <nav>
-    <router-link to="/">
-       <img src="../assets/logo.png" alt="logo" />
-    </router-link>
     <ul>
       <li v-for="(link, index) in links" :key="`${index}-${link}`">
-        <font-awesome-icon :icon="link.icon" />
-        <a :href="link.url"  rel="noopener noreferrer">{{
+
+        <a :href="link.url"  rel="noopener noreferrer">
+         <font-awesome-icon :icon="link.icon" />
+        {{
           link.title
         }}</a>
       </li>
@@ -24,65 +23,36 @@ export default {
 </script>
 
 <style scoped>
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  background: #c0c0c063;
-  border-bottom: 2px solid #e45826;
-  font-weight: bold;
-  padding-bottom: 3px;
-}
-nav img {
-  width: 50px;
-  margin-left: 15px;
-}
-@media (max-width: 800px) {
-  nav img {
-    display: none;
-  }
-}
-nav a:not(:first-child) {
-  width: 100%;
-  text-align: center;
-  color: #4a3933;
-  text-decoration: none;
-  font-size: 15px;
+ul {
+display: flex;
+flex-wrap: wrap;
+padding: 0 5%;
 }
 
-nav ul li svg {
-  color: #4a3933;
-  margin-right: 5px;
+ul li{
+margin-left: 8px;
+padding: 20px;
+color: #FFFEFA;
+}
+ul li a{
+ text-decoration: none;
+ color: #FFFEFA;
+ margin-left: 8px;
 }
 
-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  padding: 0 5%;
-  list-style: none;
-}
-nav ul li {
-  padding: 0 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
-  background: #ffffff;
-  border: 2px solid #e45826;
-  height: 35px;
-  width: 120px;
-  border-radius: 15px;
+ul li a:hover{
+transition: .5s;
+color: #32523f;
+
 }
 
-nav ul li:hover {
-  background: #d1cfcf;
-  transition: 0.5s background;
+@media(max-width: 800px){
+ul li{
+margin-left: 8px;
+padding: 10px;
+color: #FFFEFA;
+}
 }
 
-h3 {
-  margin: 40px 0 0;
-}
+
 </style>
