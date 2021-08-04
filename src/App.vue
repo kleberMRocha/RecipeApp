@@ -13,19 +13,17 @@
         :src="`https://www.youtube.com/embed/${selectMeal}`"
         frameborder="0"
       ></iframe>
-      
     </div>
     <div class="container">
-        <Header :links="links" />
-        <main>
-          <h5>
-          Search Recipes from Around the World 
-         </h5>
+      <Header :links="links" />
+      <main>
+        <h5>
+          Search Recipes from Around the World
+        </h5>
 
         <img src="./assets/logo.svg" alt="logo" class="logo" />
-      
-        </main>
-  
+      </main>
+
       <InputSearch
         placeHolder="Search a meal"
         v-on:getSearchValue="getSearchValues"
@@ -36,13 +34,12 @@
       {{ info }}
     </div>
     <ul class="recipesContainer">
-    <Loader :visible="isLoading" />
-       <router-view></router-view>
+      <Loader :visible="isLoading" />
+      <router-view></router-view>
 
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
         <FoodCard :meal="meal" v-on:showModal="showModal" />
       </li>
-
     </ul>
   </div>
 </template>
@@ -66,7 +63,7 @@ export default {
     InputSearch,
     Header,
     FoodCard,
-    Loader
+    Loader,
   },
   data() {
     return {
@@ -75,10 +72,10 @@ export default {
       isLoading: false,
     };
   },
-  mixins:[modal],
+  mixins: [modal],
   methods: {
     getSearchValues: function(search) {
-      if(search.length < 2) return
+      if (search.length < 2) return;
 
       this.isLoading = true;
       if (!search.length) {
@@ -86,34 +83,34 @@ export default {
         return;
       }
 
-      axios.get(`search.php?s=${search}`)
-      .then((response) => {
-        this.meals = null;
-        if(response.data.meals){
+      axios
+        .get(`search.php?s=${search}`)
+        .then((response) => {
+          this.meals = null;
+          if (response.data.meals) {
+            this.isLoading = false;
+            this.meals = response.data.meals;
+            this.info = '';
+            return;
+          }
+
           this.isLoading = false;
-          this.meals = response.data.meals;
-          this.info = '';
-          return;
-        }
-
-        this.isLoading = false 
-        this.info = 'Could not find recipe with this name'
-
-      }).catch(() => this.info = 'Houve um erro inesperado')
-      
+          this.info = 'Could not find recipe with this name';
+        })
+        .catch(() => (this.info = 'Houve um erro inesperado'));
     },
   },
-  computed:{
+  computed: {
     ...mapState({
       links: (state) => state.links,
-      modalVisible:(state) => state.modalVisible,
+      modalVisible: (state) => state.modalVisible,
       selectMeal: (state) => state.selectMeal,
-    })
-  }
+    }),
+  },
 };
 </script>
 
-<style >
+<style>
 @import url('./global/reset.css');
 
 @keyframes showScale {
@@ -132,30 +129,30 @@ export default {
   }
 
   to {
-     opacity: 1;
+    opacity: 1;
   }
 }
 
 .container {
   position: relative;
-  background: #689F77;
-    margin-bottom: 24px;
+  background: #689f77;
+  margin-bottom: 24px;
 }
 
-main{
-display: flex;
-justify-content: center;
-align-items: center;
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.inputSearchMain{
+.inputSearchMain {
   position: absolute;
   bottom: -30px;
   left: 0;
   right: 0;
 }
 
-.recipesContainer{
+.recipesContainer {
   display: flex;
   width: 80%;
   margin: 0 auto;
@@ -173,7 +170,7 @@ align-items: center;
 }
 
 h5 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: bold;
   font-size: 42px;
   text-align: left;
@@ -181,13 +178,28 @@ h5 {
   line-height: 50px;
 }
 
-@media(max-width: 800px){
+@media (max-width: 800px) {
   h5 {
-  font-size: 20px;
-  text-align: left;
-  line-height: 25px;
-  margin: 8px;
-}
+    font-size: 15px;
+    text-align: left;
+    line-height: 25px;
+    margin: 8px;
+  }
+
+  .logo {
+    width: 120px;
+  }
+
+  .inputSearchMain {
+    position: absolute;
+    bottom: -50px;
+    z-index: 2;
+    left: 0;
+    right: 0;
+  }
+  .container {
+    margin-bottom: 50px;
+  }
 }
 
 .modal {
@@ -202,7 +214,7 @@ h5 {
   position: fixed;
   width: 100%;
   height: 100%;
-  animation: entrance .5s ease-in;
+  animation: entrance 0.5s ease-in;
   z-index: 9999;
 }
 
@@ -218,14 +230,13 @@ h5 {
   right: 300px;
 }
 
-.info{
+.info {
   text-align: center;
   background-color: white;
-  color: #689F77;
+  color: #689f77;
   max-width: 50%;
   font-weight: bold;
   margin: 90px auto;
-  padding: 16px
+  padding: 16px;
 }
-
 </style>

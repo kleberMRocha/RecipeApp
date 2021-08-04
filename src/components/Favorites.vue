@@ -1,23 +1,20 @@
 <template>
   <div class="favContainer">
-  <h1 class="title-recipe">
-     {{
-      !meals 
-      ? 'You havent favored anything yet' 
-      : ' Your Favorite Recipes ♡'
-     }}
-  </h1>
-  <ul class="favList">
-   <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
-         <FoodCard :meal="meal" v-on:showModal="showModal" />
+    <h1 class="title-recipe">
+      {{
+        !meals ? 'You havent favored anything yet' : ' Your Favorite Recipes ♡'
+      }}
+    </h1>
+    <ul class="favList">
+      <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
+        <FoodCard :meal="meal" v-on:showModal="showModal" />
       </li>
-  </ul>
-    
+    </ul>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import { mapState } from 'vuex';
 import FoodCard from './FoodCard';
 import modal from '../mixin/modal';
 
@@ -25,13 +22,13 @@ export default {
   props: {
     meal: Object,
   },
-  components:{
-    FoodCard
+  components: {
+    FoodCard,
   },
-  mixins:[modal],
+  mixins: [modal],
   computed: {
     ...mapState({
-      meals: (state) => (state.favMeals)
+      meals: (state) => state.favMeals,
     }),
     youtubeId: function() {
       const splitedUrl = this.meal.strYoutube.split('watch');
@@ -53,34 +50,18 @@ export default {
   }
 }
 
-.containerFood {
-  border-radius: 15px;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #31313181;
-  width: 150px;
-  height: 100%;
-  overflow: hidden;
-  color: #ffffff;
-  font-weight: bold;
+.favContainer {
+  background-color: #ebfff0;
+  border: white solid 4px;
+  margin: 8px;
   text-align: center;
-  cursor: pointer;
-  position: relative;
-  animation: slidein ease-in-out 1s;
-  max-height: 185px;
+  width: 100%;
+  border-radius: 16px;
+  padding: 16px;
+  filter: brightness(0.9);
 }
-
-.favContainer{
-    background-color: #EBFFF0;
-    border: white solid 4px;
-    margin: 8px;
-    text-align: center;
-    width: 100%;
-    border-radius: 16px;
-    padding: 16px;
+.favContainer:hover {
+  filter: brightness(1);
 }
 
 .containerFood:hover {
@@ -123,8 +104,8 @@ h3 {
   font-size: 85px;
   cursor: pointer;
 }
-.playVideo:hover{
-  transition: color .5s;
+.playVideo:hover {
+  transition: color 0.5s;
   color: #ffffff;
 }
 
@@ -138,11 +119,10 @@ h3 {
   position: absolute;
   left: 0;
   cursor: pointer;
-
 }
-.favButton:hover{
+.favButton:hover {
   color: tomato;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .alternativeName {
@@ -156,22 +136,21 @@ h3 {
   cursor: pointer;
 }
 
-.title-recipe{
+.title-recipe {
   width: 100%;
-  color: white;
-  font: 20px;
+  color: #689f77;
   font-weight: bold;
   margin: 16px;
 }
 
-.favList{
+.favList {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   color: #ffffff;
 }
 
-.favList img{
+.favList img {
   width: 150px;
   border-radius: 16px;
 }
