@@ -12,6 +12,10 @@
     </div>
 
     <div class="options">
+      <p class="fullName">{{ meal.strMeal }}</p>
+      <button class="details" @click="$emit('showDetails', meal)">
+        See Details
+      </button>
       <button class="playVideo" @click="$emit('showModal', youtubeId)">
         <font-awesome-icon icon="play-circle" />
       </button>
@@ -121,14 +125,29 @@ export default {
   animation: slidein ease-in-out 1s;
 }
 .imgContainer {
-  height: 240px;
+  margin-bottom: -16px;
+  height: 100%;
   width: 100%;
-  object-fit: contain;
-  margin: 8px;
+  border-top: rgb(240, 233, 233) dashed 1.5px;
+  object-fit: cover;
+}
+.details {
+  margin-top: 50px;
+  font-weight: bold;
+  color: #ffffff;
+  background: none;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  padding: 12px;
+  transition: 0.5s;
+}
+
+.details:hover {
+  color: #000000;
+  background: #ffffff;
 }
 
 .imgContainer img {
-  height: 240px;
   width: 100%;
 }
 
@@ -156,9 +175,17 @@ export default {
   cursor: pointer;
   opacity: 0;
 }
+
 .options:hover {
   opacity: 1;
   transition: 0.9s opacity;
+}
+
+.options .fullName {
+  color: #ffffff;
+  position: absolute;
+  bottom: 0;
+  margin: 8px;
 }
 h3 {
   margin: 8px;

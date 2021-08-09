@@ -3,9 +3,41 @@
     <div
       class="modal"
       :class="{ modalVisible: !modalVisible }"
-      @click="closeModal"
+      @click="handleCloseModal"
     >
+      <div v-if="details" class="details_container">
+        <h3 class="details_title">{{ details.strMeal }}</h3>
+        <div class="strInstructions">
+          <h4>ingredients</h4>
+          <ul>
+            <li
+              v-for="ingredient in details.ingredientList"
+              :key="ingredient.ingredientList"
+            >
+              {{ ingredient.ingredientList }} -
+              {{ ingredient.strMeasureList }}
+            </li>
+          </ul>
+
+          <p class="strInstructions_details">
+            {{ details.strInstructions }}
+          </p>
+        </div>
+
+        <p>
+          <a
+            :href="details.strSource"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="details_src"
+          >
+            Fonte
+          </a>
+        </p>
+      </div>
+
       <iframe
+        v-else
         id="ytplayer"
         type="text/html"
         width="640"
@@ -20,8 +52,6 @@
         <h5>
           Search Recipes from Around the World
         </h5>
-
-        <img src="./assets/logo.svg" alt="logo" class="logo" />
       </main>
 
       <InputSearch
@@ -38,7 +68,11 @@
       <router-view></router-view>
 
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
-        <FoodCard :meal="meal" v-on:showModal="showModal" />
+        <FoodCard
+          :meal="meal"
+          @showModal="showModal"
+          @showDetails="showDetails"
+        />
       </li>
     </ul>
   </div>
@@ -70,6 +104,7 @@ export default {
       meals: null,
       info: '',
       isLoading: false,
+      details: null,
     };
   },
   mixins: [modal],
@@ -98,6 +133,29 @@ export default {
           this.info = 'Could not find recipe with this name';
         })
         .catch(() => (this.info = 'Houve um erro inesperado'));
+    },
+    showDetails(value) {
+      const formatedValue = this.getstrIngredientInfos(value);
+      this.showModal(true);
+      this.details = formatedValue;
+    },
+    handleCloseModal() {
+      this.details = null;
+      this.closeModal();
+    },
+    getstrIngredientInfos(details) {
+      const ingredientList = [];
+
+      for (let iIn = 0; iIn <= 20; iIn++) {
+        if (details[`strIngredient${iIn}`] && details[`strMeasure${iIn}`]) {
+          ingredientList.push({
+            ingredientList: details[`strIngredient${iIn}`],
+            strMeasureList: details[`strMeasure${iIn}`],
+          });
+        }
+      }
+
+      return { ingredientList, ...details };
     },
   },
   computed: {
@@ -137,6 +195,43 @@ export default {
   position: relative;
   background: #689f77;
   margin-bottom: 24px;
+  padding: 4px 0 0 0;
+  min-height: 250px;
+}
+.details_container {
+  position: absolute;
+  z-index: 99999;
+  top: 0;
+}
+.strInstructions_details {
+  margin: 16px 0;
+  max-height: 120px;
+  overflow-y: scroll;
+}
+.details_container h4 {
+  font-size: 25px;
+  margin: 8px 0;
+  text-decoration: underline;
+}
+.details_title {
+  color: #ffffff;
+  font-size: 40px;
+  margin: 16px;
+}
+.details_src {
+  color: #ffffff;
+  font-size: 12px;
+  margin: 16px;
+}
+.strInstructions {
+  margin: 0 auto;
+  line-height: 150%;
+  max-width: 90%;
+  color: #ffffff;
+  padding: 4%;
+  border-radius: 8px;
+  background: url('./assets/bg.png'), #689f77;
+  background-repeat: repeat-y;
 }
 
 main {
@@ -147,7 +242,7 @@ main {
 
 .inputSearchMain {
   position: absolute;
-  bottom: -30px;
+  bottom: -40px;
   left: 0;
   right: 0;
 }
@@ -171,6 +266,7 @@ main {
 
 h5 {
   color: #ffffff;
+  text-shadow: 1px 1px 2px black;
   font-weight: bold;
   font-size: 42px;
   text-align: left;
@@ -180,10 +276,8 @@ h5 {
 
 @media (max-width: 800px) {
   h5 {
-    font-size: 15px;
-    text-align: left;
-    line-height: 25px;
-    margin: 8px;
+    max-width: 70%;
+    font-size: 25px;
   }
 
   .logo {
@@ -210,7 +304,6 @@ h5 {
   justify-content: center;
   align-items: center;
   padding: 5px;
-  border-radius: 15px;
   position: fixed;
   width: 100%;
   height: 100%;

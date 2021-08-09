@@ -2,7 +2,7 @@
   <header>
     <div>
       <button class="menuMobile" @click="isVisible = !isVisible">
-        Mais Opções ...
+        <font-awesome-icon icon="bars" />
       </button>
     </div>
     <nav :class="!isVisible ? 'headerMain' : 'hidden'">
@@ -61,9 +61,9 @@ ul li a:hover {
 @media (max-width: 800px) {
   .menuMobile {
     display: block;
+    margin: 0 8px;
     border: none;
-    margin: 4px;
-    border: 2px solid #fffefa;
+    border: 1px solid #fffefa;
     background: transparent;
     padding: 8px;
     font: bold;

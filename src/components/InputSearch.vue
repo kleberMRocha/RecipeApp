@@ -1,9 +1,10 @@
 <template>
-  <div class="search" :class="{ 'focused': focused }">
-    <font-awesome-icon icon="search" 
-     :class="{ 'focusedIcon': focused || filled  }  " 
-     
-     />
+  <div class="search" :class="{ focused: focused }">
+    <img src="../assets/logo.png" alt="logo" class="logo" />
+    <font-awesome-icon
+      icon="search"
+      :class="{ focusedIcon: focused || filled }"
+    />
     <input
       type="search"
       @focus="focused = true"
@@ -25,10 +26,10 @@ export default {
       searchValue: '',
     };
   },
-  computed:{
-  filled: function(){
-    return !!this.searchValue.length
-  },
+  computed: {
+    filled: function() {
+      return !!this.searchValue.length;
+    },
   },
   props: {
     placeHolder: String,
@@ -37,17 +38,8 @@ export default {
 </script>
 
 <style scoped>
-input {
-  z-index: 999;
-  width: 80%;
-  margin:0 auto;
-  height: 50px;
-  border: none;
-  background: none;
-  outline: none;
-  color: #E36153;
-}
 .search {
+  position: relative;
   background: #ffffff;
   border-radius: 15px;
   width: 60%;
@@ -56,16 +48,46 @@ input {
   align-items: center;
   margin: 8px auto;
   box-shadow: 2px 5px 3px -5px black;
-  border: 2px solid #D0C4C2;
+  border: 2px solid #d0c4c2;
 }
+
+input {
+  z-index: 999;
+  width: 80%;
+  margin: 0 auto;
+  height: 50px;
+  border: none;
+  background: none;
+  outline: none;
+  color: #e36153;
+}
+
 .focused {
-  border: 2px solid #E36153;
+  border: 2px solid #e36153;
 }
 .search svg {
   margin-right: auto;
   margin-left: 15px;
 }
 .focusedIcon {
-  color: #E36153;
+  color: #e36153;
+}
+.logo {
+  position: absolute;
+  width: 200px;
+  margin: auto;
+  right: 0;
+  top: -180px;
+  z-index: 1;
+}
+
+@media (max-width: 800px) {
+  .logo {
+    width: 150px;
+    top: -140px;
+  }
+  .search {
+    width: 90%;
+  }
 }
 </style>
