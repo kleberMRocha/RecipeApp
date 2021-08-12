@@ -8,20 +8,31 @@
       <div v-if="details" class="details_container">
         <h3 class="details_title">{{ details.strMeal }}</h3>
         <div class="strInstructions">
-          <h4>ingredients</h4>
-          <ul>
-            <li
-              v-for="ingredient in details.ingredientList"
-              :key="ingredient.ingredientList"
-            >
-              {{ ingredient.ingredientList }} -
-              {{ ingredient.strMeasureList }}
-            </li>
-          </ul>
+          <div class="ingredients">
+            <h4>ingredients</h4>
+            <ul>
+              <li
+                v-for="ingredient in details.ingredientList"
+                :key="ingredient.ingredientList"
+              >
+                {{ ingredient.ingredientList }} -
+                {{ ingredient.strMeasureList }}
+              </li>
+            </ul>
+          </div>
 
           <p class="strInstructions_details">
             {{ details.strInstructions }}
           </p>
+          <div>
+            <button
+              type="button"
+              class="download"
+              @click="handleDownloadRecipe(details)"
+            >
+              Download Recipe
+            </button>
+          </div>
         </div>
 
         <p>
@@ -46,6 +57,7 @@
         frameborder="0"
       ></iframe>
     </div>
+
     <div class="container">
       <Header :links="links" />
       <main>
@@ -143,6 +155,37 @@ export default {
       this.details = null;
       this.closeModal();
     },
+    handleDownloadRecipe(obj) {
+      const {
+        strMeal,
+        ingredientList,
+        strYoutube,
+        strSource,
+        strMealThumb,
+        strInstructions,
+      } = obj;
+
+      const recipe = JSON.stringify({
+        strMeal,
+        ingredientList,
+        strYoutube,
+        strSource,
+        strMealThumb,
+        strInstructions,
+      });
+
+      try {
+        const blob = new Blob([recipe], { type: 'text/csv' });
+        const elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = `${strMeal}.txt`;
+        document.body.appendChild(elem);
+        elem.click();
+        document.body.removeChild(elem);
+      } catch (err) {
+        console.log(err);
+      }
+    },
     getstrIngredientInfos(details) {
       const ingredientList = [];
 
@@ -232,6 +275,29 @@ export default {
   border-radius: 8px;
   background: url('./assets/bg.png'), #689f77;
   background-repeat: repeat-y;
+}
+
+.ingredients {
+  max-height: 300px;
+  margin: 16px 0;
+  overflow-y: scroll;
+}
+
+.download {
+  border: #ffffff 2px solid;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  color: #ffffff;
+  height: 48px;
+  font-weight: bold;
+  transition: 0.5s;
+  z-index: 999;
+}
+
+.download:hover {
+  background: #ffffff;
+  color: #689f77;
 }
 
 main {
