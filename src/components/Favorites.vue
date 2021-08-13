@@ -1,13 +1,15 @@
 <template>
   <div class="favContainer">
     <h1 class="title-recipe">
-      {{
-        !meals ? 'You havent favored anything yet' : ' Your Favorite Recipes ♡'
-      }}
+      {{ !meals ? 'You havent favored anything yet' : '' }}
     </h1>
     <ul class="favList">
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
-        <FoodCard :meal="meal" v-on:showModal="showModal" />
+        <FoodCard
+          :meal="meal"
+          @showModal="showModal"
+          @showDetails="showDetails"
+        />
       </li>
     </ul>
   </div>
@@ -55,7 +57,8 @@ export default {
   border: white solid 4px;
   margin: 8px;
   text-align: center;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   border-radius: 16px;
   padding: 16px;
   filter: brightness(0.9);
@@ -152,6 +155,5 @@ h3 {
 
 .favList img {
   width: 150px;
-  border-radius: 16px;
 }
 </style>

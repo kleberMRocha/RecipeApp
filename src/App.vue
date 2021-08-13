@@ -61,12 +61,14 @@
     <div class="container">
       <Header :links="links" />
       <main>
-        <h5>
+        <h5 v-if="routeName !== 'favoritos'">
           Search Recipes from Around the World
         </h5>
+        <h5 class="fav-title" v-else>Your Favorite Recipes</h5>
       </main>
 
       <InputSearch
+        v-if="!routeName"
         placeHolder="Search a meal"
         v-on:getSearchValue="getSearchValues"
         class="inputSearchMain"
@@ -75,18 +77,19 @@
     <div v-if="info" class="info">
       {{ info }}
     </div>
-    <ul class="recipesContainer">
-      <Loader :visible="isLoading" />
-      <router-view></router-view>
-
-      <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
-        <FoodCard
-          :meal="meal"
-          @showModal="showModal"
-          @showDetails="showDetails"
-        />
-      </li>
-    </ul>
+    <keep-alive>
+      <ul v-if="!routeName" class="recipesContainer">
+        <Loader :visible="isLoading" />
+        <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
+          <FoodCard
+            :meal="meal"
+            @showModal="showModal"
+            @showDetails="showDetails"
+          />
+        </li>
+      </ul>
+    </keep-alive>
+    <router-view />
   </div>
 </template>
 
@@ -97,11 +100,7 @@ import FoodCard from './components/FoodCard.vue';
 import Loader from './components/Loader';
 import modal from '../src/mixin/modal';
 import { mapState } from 'vuex';
-import Axios from 'axios';
-
-const axios = Axios.create({
-  baseURL: 'https://www.themealdb.com/api/json/v1/1/',
-});
+import { axios } from './services/index';
 
 export default {
   name: 'App',
@@ -116,7 +115,6 @@ export default {
       meals: null,
       info: '',
       isLoading: false,
-      details: null,
     };
   },
   mixins: [modal],
@@ -146,13 +144,8 @@ export default {
         })
         .catch(() => (this.info = 'Houve um erro inesperado'));
     },
-    showDetails(value) {
-      const formatedValue = this.getstrIngredientInfos(value);
-      this.showModal(true);
-      this.details = formatedValue;
-    },
     handleCloseModal() {
-      this.details = null;
+      this.setDetails(null);
       this.closeModal();
     },
     handleDownloadRecipe(obj) {
@@ -165,14 +158,26 @@ export default {
         strInstructions,
       } = obj;
 
-      const recipe = JSON.stringify({
-        strMeal,
-        ingredientList,
-        strYoutube,
-        strSource,
-        strMealThumb,
-        strInstructions,
-      });
+      const recipe = `
+      ## ${strMeal}  ##
+      
+      ${ingredientList.map((i) => {
+        if (!i) return '';
+        return `- ${i.ingredientList} - ${i.strMeasureList}`;
+      })}
+     
+     -----------------------------------------------------
+
+     ${strInstructions}
+
+     ____________________________________________________
+
+     picture : ${strMealThumb} 
+
+     Youtube recipe : ${strYoutube}
+
+     fonte  ${strSource}
+      `;
 
       try {
         const blob = new Blob([recipe], { type: 'text/csv' });
@@ -186,27 +191,17 @@ export default {
         console.log(err);
       }
     },
-    getstrIngredientInfos(details) {
-      const ingredientList = [];
-
-      for (let iIn = 0; iIn <= 20; iIn++) {
-        if (details[`strIngredient${iIn}`] && details[`strMeasure${iIn}`]) {
-          ingredientList.push({
-            ingredientList: details[`strIngredient${iIn}`],
-            strMeasureList: details[`strMeasure${iIn}`],
-          });
-        }
-      }
-
-      return { ingredientList, ...details };
-    },
   },
   computed: {
     ...mapState({
       links: (state) => state.links,
       modalVisible: (state) => state.modalVisible,
       selectMeal: (state) => state.selectMeal,
+      details: (state) => state.details,
     }),
+    routeName() {
+      return this.$route.name;
+    },
   },
 };
 </script>
@@ -240,6 +235,7 @@ export default {
   margin-bottom: 24px;
   padding: 4px 0 0 0;
   min-height: 250px;
+  max-height: 500px;
 }
 .details_container {
   position: absolute;
@@ -329,6 +325,9 @@ main {
 .logo {
   width: 250px;
 }
+.fav-title {
+  padding-top: 80px;
+}
 
 h5 {
   color: #ffffff;
@@ -341,6 +340,11 @@ h5 {
 }
 
 @media (max-width: 800px) {
+  .fav-title {
+    padding-top: 50px;
+    font-size: 35px;
+    text-align: center;
+  }
   h5 {
     max-width: 70%;
     font-size: 25px;

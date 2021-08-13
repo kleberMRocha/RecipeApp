@@ -19,6 +19,7 @@ that will make them easy to follow.
 - [X] The user should be able to favorite a recipe
 - [X] The user should be able to list the favorite recipes
 - [X] the user should be able to see the details of the recipe
+- [X] the user should be able to Download the details 
 - [X] Add a Loader  
 - [] Animation Improvements
 - [] Alternatives to broken video links

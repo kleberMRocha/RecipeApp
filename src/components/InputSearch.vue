@@ -81,6 +81,16 @@ input {
   z-index: 1;
 }
 
+@media (max-width: 900px) {
+  .logo {
+    width: 150px;
+    top: -140px;
+  }
+  .search {
+    width: 95%;
+  }
+}
+
 @media (max-width: 800px) {
   .logo {
     width: 150px;

@@ -34,6 +34,7 @@ const store = new Vuex.Store({
     favMeals: JSON.parse(localStorage.getItem('@RecipesApp')),
     modalVisible: false,
     selectMeal: 'VVnZd8A84z4',
+    details: null,
   },
   mutations: {
     updateFavMeals(state, value) {
@@ -46,6 +47,10 @@ const store = new Vuex.Store({
     closeModal(state) {
       state.modalVisible = false;
       state.selectMeal = '';
+      state.details = null;
+    },
+    setDetails(state, info) {
+      state.details = info;
     },
   },
 });
