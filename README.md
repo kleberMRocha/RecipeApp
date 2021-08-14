@@ -21,8 +21,9 @@ that will make them easy to follow.
 - [X] the user should be able to see the details of the recipe
 - [X] the user should be able to Download the details 
 - [X] Add a Loader  
-- [] Animation Improvements
+- [X] Animation Improvements
 - [] Alternatives to broken video links
+- [] Add unit test
 
 
 ## Project setup

@@ -363,6 +363,9 @@ h5 {
 }
 
 @media (max-width: 800px) {
+  .details_title {
+    font-size: 30px;
+  }
   .fav-title {
     padding-top: 50px;
     font-size: 35px;

@@ -88,14 +88,21 @@ export default {
 <style scoped>
 @keyframes slidein {
   from {
-    transform: scale(0);
+    transform: rotatey(150deg);
     opacity: 0;
   }
   to {
-    transform: scale(1);
+    transform: rotate(0);
   }
 }
-
+@keyframes imgEntrance {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .card-header {
   position: relative;
   display: flex;
@@ -130,6 +137,7 @@ export default {
   width: 100%;
   border-top: rgb(240, 233, 233) dashed 1.5px;
   object-fit: cover;
+  animation: imgEntrance ease-in-out 1.5s;
 }
 .details {
   margin-top: 50px;

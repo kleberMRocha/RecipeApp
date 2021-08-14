@@ -15,28 +15,28 @@
 
 <script>
 export default {
-    props:{
-        visible:{
-            type: Boolean,
-            required: true
-        }
-    }
-
+  props: {
+    visible: {
+      type: Boolean,
+      required: true,
+    },
+  },
 };
 </script>
 
 <style scoped>
-.loader{
-position: absolute;
-display:flex;
-justify-content: center;
-align-items: center;
-left: 0;
-right: 0;
-top: 0;
-bottom: 0;
-widows: 100%;
-background:#00000027;
+.loader {
+  z-index: 99999;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  widows: 100%;
+  background: #00000027;
 }
 .lds-roller {
   display: inline-block;
@@ -49,7 +49,7 @@ background:#00000027;
   transform-origin: 40px 40px;
 }
 .lds-roller div:after {
-  content: " ";
+  content: ' ';
   display: block;
   position: absolute;
   width: 7px;
@@ -122,5 +122,4 @@ background:#00000027;
     transform: rotate(360deg);
   }
 }
-
 </style>
