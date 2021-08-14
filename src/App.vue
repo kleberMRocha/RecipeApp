@@ -2,11 +2,15 @@
   <div id="app">
     <div
       class="modal"
-      :class="{ modalVisible: !modalVisible }"
       @click="handleCloseModal"
+      :class="{ modalVisible: !modalVisible }"
     >
       <div v-if="details" class="details_container">
-        <h3 class="details_title">{{ details.strMeal }}</h3>
+        <div class="header-modal">
+          <h3 class="details_title">{{ details.strMeal }}</h3>
+          <button @click="closeModal" class="closeModal">X</button>
+        </div>
+
         <div class="strInstructions">
           <div class="ingredients">
             <h4>ingredients</h4>
@@ -74,7 +78,7 @@
         class="inputSearchMain"
       />
     </div>
-    <div v-if="info" class="info">
+    <div v-if="info && !routeName" class="info">
       {{ info }}
     </div>
     <keep-alive>
@@ -145,8 +149,7 @@ export default {
         .catch(() => (this.info = 'Houve um erro inesperado'));
     },
     handleCloseModal() {
-      this.setDetails(null);
-      this.closeModal();
+      !this.details ? this.closeModal() : () => {};
     },
     handleDownloadRecipe(obj) {
       const {
@@ -159,14 +162,15 @@ export default {
       } = obj;
 
       const recipe = `
-      ## ${strMeal}  ##
-      
+      ${strMeal}  
+      ____________________________________________________
+
       ${ingredientList.map((i) => {
         if (!i) return '';
         return `- ${i.ingredientList} - ${i.strMeasureList}`;
       })}
      
-     -----------------------------------------------------
+     ____________________________________________________
 
      ${strInstructions}
 
@@ -237,6 +241,12 @@ export default {
   min-height: 250px;
   max-height: 500px;
 }
+
+.header-modal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .details_container {
   position: absolute;
   z-index: 99999;
@@ -262,6 +272,19 @@ export default {
   font-size: 12px;
   margin: 16px;
 }
+
+.closeModal {
+  border: #ffffff 2px solid;
+  background: none;
+  width: 80px;
+  cursor: pointer;
+  color: #ffffff;
+  height: 48px;
+  font-weight: bolder;
+  transition: 0.5s;
+  z-index: 999;
+  margin: 18px;
+}
 .strInstructions {
   margin: 0 auto;
   line-height: 150%;
@@ -274,7 +297,7 @@ export default {
 }
 
 .ingredients {
-  max-height: 300px;
+  max-height: 200px;
   margin: 16px 0;
   overflow-y: scroll;
 }
