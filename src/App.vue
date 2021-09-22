@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Notication :infos="notificationsInfos" />
+    <Notication />
     <div
       class="modal"
       @click="handleCloseModal"
@@ -90,7 +90,6 @@
             :meal="meal"
             @showModal="showModal"
             @showDetails="showDetails"
-            @notification="showNotification"
           />
         </li>
       </ul>
@@ -109,6 +108,8 @@ import Notication from '../src/components/Notification.vue';
 import { mapState } from 'vuex';
 import { axios } from './services/index';
 
+import {mapMutations} from './vuex/nameSpaceNotification';
+
 export default {
   name: 'App',
   components: {
@@ -123,11 +124,11 @@ export default {
       meals: null,
       info: '',
       isLoading: false,
-      notificationsInfos: {},
     };
   },
   mixins: [modal],
   methods: {
+    ...mapMutations(['setNotificationsInfos']),
     getSearchValues: function(search) {
       if (search.length < 2) return;
 
@@ -199,10 +200,6 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    },
-    showNotification(value) {
-      this.notificationsInfos = value;
-      console.log(this.notificationsInfos);
     },
   },
   computed: {

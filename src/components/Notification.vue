@@ -1,29 +1,44 @@
 <template>
   <div class="notification-body" ref="notification">
-    <font-awesome-icon icon="heart" />
-    {{ infos.meal ? infos.meal.strMeal : '' }} has been
-    {{ infos.isFav ? 'added' : 'removed' }} to favorites!
+    <font-awesome-icon :icon="
+      notificationsInfos.isFav 
+        ? ['fa', 'heart'] 
+        : ['fa', 'heart-broken']" 
+    />
+    <div>
+      <u> {{ notificationsInfos.meal ? notificationsInfos.meal.strMeal : '' }}</u>  has been
+      {{ notificationsInfos.isFav ? 'added' : 'removed' }} to favorites!
+    </div>
   </div>
 </template>
 
 <script>
+import {mapState} from '../vuex/nameSpaceNotification';
+
 export default {
   name: 'Notification',
-  props: {
-    infos: {
-      type: Object,
+  data() {
+  return {
+      isVisible: false,
+  };
+},
+  watch: {
+    notificationsInfos() {
+      if(this.isVisible) return;
+      this.$refs.notification.classList = ['notification-body'];
+      this.$refs.notification.style.display = 'flex';
+      this.isVisible = true;
+      setTimeout(() => {
+             this.$refs.notification.classList = ['outAnimation'];
+             this.isVisible = false;
+      }, 5000);
+     
     },
   },
-  watch: {
-    infos() {
-      this.$refs.notification.style.display = 'flex';
-      this.$refs.notification.classList = 'outAnimation';
-
-      setTimeout(() => {
-        this.$refs.notification.style.display = 'none';
-        this.$refs.notification.classList = 'notification-body';
-      }, 15000);
-    },
+  computed: {
+    ...mapState({
+      notificationsInfos: state => state.notificationsInfos
+    })
   },
   mounted() {
     this.$refs.notification.style.display = 'none';
@@ -53,36 +68,38 @@ export default {
 }
 
 .notification-body {
+  padding: 8px;
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: entrance ease-in-out 1s;
+  animation: entrance ease-in-out .5s;
   z-index: 9999;
   max-width: 300px;
   width: 300px;
   height: 90px;
-  bottom: 0;
+  top: 0;
   right: 0;
-  margin: auto 16px 16px 16px;
+  margin: 16px;
   border-radius: 8px;
   background: white;
   box-shadow: 60px black;
 }
 
 .outAnimation {
+  padding: 8px;
   position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: out 15s ease-in-out 2s;
+  animation: out 50s;
   z-index: 9999;
   max-width: 300px;
   width: 300px;
   height: 90px;
-  bottom: 0;
+  top: 0;
   right: 0;
-  margin: auto 16px 16px 16px;
+  margin: 16px;
   border-radius: 8px;
   background: white;
   box-shadow: 60px black;

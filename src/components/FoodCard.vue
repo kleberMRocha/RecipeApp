@@ -25,11 +25,13 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+import {mapMutations as mapMutationsNotification} from '../vuex/nameSpaceNotification';
 export default {
   props: {
     meal: Object,
   },
   methods: {
+    ...mapMutationsNotification(['setNotificationsInfos']),
     ...mapMutations(['updateFavMeals']),
     saveFavRecipe(value) {
       this.handleNotification();
@@ -69,7 +71,7 @@ export default {
         : meal.strMeal;
     },
     handleNotification() {
-      this.$emit('notification', {
+      this.setNotificationsInfos({
         meal: this.meal,
         isFav: (() => {
           const isFavorite = !!this.isFav;

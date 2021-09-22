@@ -6,6 +6,7 @@ import {
   faLink,
   faPlayCircle,
   faHeart,
+  faHeartBroken,
   faHome,
   faUser,
   faBars,
@@ -20,7 +21,7 @@ import router from '../routes/router';
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
-library.add(faSearch, faLink, faPlayCircle, faHeart, faHome, faUser, faBars);
+library.add(faSearch, faLink, faPlayCircle, faHeart, faHome, faUser, faBars, faHeartBroken);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
