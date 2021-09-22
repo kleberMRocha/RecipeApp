@@ -32,6 +32,7 @@ export default {
   methods: {
     ...mapMutations(['updateFavMeals']),
     saveFavRecipe(value) {
+      this.handleNotification();
       if (this.isFav) {
         const favRecipes = JSON.parse(localStorage.getItem('@RecipesApp'));
         const isfavoriteyet = favRecipes.filter(
@@ -66,6 +67,15 @@ export default {
       return meal.strMeal.length > 20
         ? `${meal.strMeal.substring(0, 20)} ...`
         : meal.strMeal;
+    },
+    handleNotification() {
+      this.$emit('notification', {
+        meal: this.meal,
+        isFav: (() => {
+          const isFavorite = !!this.isFav;
+          return !isFavorite;
+        })(),
+      });
     },
   },
   computed: {

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Notication :infos="notificationsInfos" />
     <div
       class="modal"
       @click="handleCloseModal"
@@ -89,6 +90,7 @@
             :meal="meal"
             @showModal="showModal"
             @showDetails="showDetails"
+            @notification="showNotification"
           />
         </li>
       </ul>
@@ -103,6 +105,7 @@ import Header from './components/Header.vue';
 import FoodCard from './components/FoodCard.vue';
 import Loader from './components/Loader';
 import modal from '../src/mixin/modal';
+import Notication from '../src/components/Notification.vue';
 import { mapState } from 'vuex';
 import { axios } from './services/index';
 
@@ -112,6 +115,7 @@ export default {
     InputSearch,
     Header,
     FoodCard,
+    Notication,
     Loader,
   },
   data() {
@@ -119,6 +123,7 @@ export default {
       meals: null,
       info: '',
       isLoading: false,
+      notificationsInfos: {},
     };
   },
   mixins: [modal],
@@ -194,6 +199,10 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    showNotification(value) {
+      this.notificationsInfos = value;
+      console.log(this.notificationsInfos);
     },
   },
   computed: {

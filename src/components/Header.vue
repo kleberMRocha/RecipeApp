@@ -1,14 +1,26 @@
 <template>
-  <header>
+  <header class="main_header">
     <div>
-      <button class="menuMobile" @click="isVisible = !isVisible">
+      <button
+        class="menuMobile"
+        ref="MainMenuMobile"
+        @click="isVisible = !isVisible"
+      >
         <font-awesome-icon icon="bars" />
       </button>
     </div>
     <nav :class="!isVisible ? 'headerMain' : 'hidden'">
       <ul>
-        <li v-for="(link, index) in links" :key="`${index}-${link}`">
-          <a :href="link.url" rel="noopener noreferrer">
+        <li
+          class="menuLink"
+          v-for="(link, index) in links"
+          :key="`${index}-${link}`"
+        >
+          <a
+            :href="link.url"
+            :target="link.blank ? '_blank' : '_self'"
+            rel="noopener noreferrer"
+          >
             <font-awesome-icon :icon="link.icon" />
             {{ link.title }}</a
           >
@@ -33,6 +45,9 @@ export default {
 </script>
 
 <style scoped>
+.main_header {
+  margin-top: 4px;
+}
 .menuMobile {
   display: none;
 }
@@ -47,6 +62,7 @@ ul li {
   padding: 20px;
   color: #fffefa;
 }
+
 ul li a {
   text-decoration: none;
   color: #fffefa;
@@ -59,6 +75,10 @@ ul li a:hover {
 }
 
 @media (max-width: 800px) {
+  ul li:hover {
+    background: #d5ffe63f;
+  }
+
   .menuMobile {
     display: block;
     margin: 0 8px;

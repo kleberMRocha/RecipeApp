@@ -9,6 +9,7 @@
           :meal="meal"
           @showModal="showModal"
           @showDetails="showDetails"
+          @notification="showNotification"
         />
       </li>
     </ul>

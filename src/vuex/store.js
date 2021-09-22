@@ -13,6 +13,12 @@ const store = new Vuex.Store({
         blank: false,
       },
       {
+        title: 'Your Favorite Recipes',
+        url: '/#/favorites',
+        icon: 'heart',
+        blank: false,
+      },
+      {
         title: 'Recipes Api',
         url: 'https://www.themealdb.com/api.php',
         icon: 'link',
@@ -23,13 +29,7 @@ const store = new Vuex.Store({
         url: 'https://github.com/kleberMRocha',
         icon: 'user',
         blank: true,
-      },
-      {
-        title: 'Your Favorite Recipes',
-        url: '/#/favorites',
-        icon: 'heart',
-        blank: false,
-      },
+      }
     ],
     favMeals: JSON.parse(localStorage.getItem('@RecipesApp')),
     modalVisible: false,
