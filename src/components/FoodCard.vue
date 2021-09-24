@@ -141,7 +141,7 @@ export default {
   cursor: pointer;
   position: relative;
   border: olive 2px double;
-  animation: slidein ease-in-out 1s;
+  animation: slidein cubic-bezier(0.65, 0, 0.35, 1) 1s;
 }
 .imgContainer {
   margin-bottom: -16px;

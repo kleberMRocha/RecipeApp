@@ -84,6 +84,9 @@ ul li a:hover {
 }
 
 @media (max-width: 800px) {
+  ul{
+      background: linear-gradient(45deg, #2caa52d8, #3598a5);
+  }
   ul li:hover {
     background: #d5ffe63f;
   }
@@ -93,7 +96,7 @@ ul li a:hover {
     margin: 0 8px;
     border: none;
     border: 1px solid #fffefa;
-    background: transparent;
+    background: #fdfdfd3f;
     padding: 8px;
     font: bold;
     font-weight: bold;

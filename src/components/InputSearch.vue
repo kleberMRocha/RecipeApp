@@ -164,9 +164,11 @@ input {
 @keyframes fundoAnimation{
   from{
     opacity: 0;
+    transform: translatey(100px);
   }
   to{
     opacity: 1;
+    transform: translatey(0px);
   }
 }
 
@@ -207,16 +209,16 @@ input {
 
 @keyframes pessoaAnimation{
   0%{
-     transform: skew(1deg, .1deg);
+     transform: translate(-1px);
   }
 
   100%{
-       transform: skew(-1deg, -.2deg);
+       transform: translate(2px);
   }
 }
 
 #fundo{
- animation: fundoAnimation 1s ease-in;
+ animation: fundoAnimation 1s ease-in-out;
 }
 
 #food{
