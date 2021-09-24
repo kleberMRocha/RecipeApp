@@ -239,9 +239,35 @@ export default {
   }
 }
 
+@keyframes entranceTitle {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+     transform: translateY(0px);
+  }
+}
+
+@keyframes gradient {
+    0% {
+        background-position-x:  0%;
+    }
+    50% {
+        background-position-x: 75%;
+    }
+    100% {
+        background-position-x: 100%;
+    }
+}
+
 .container {
   position: relative;
-  background: #689f77;
+  animation: gradient 10s cubic-bezier(.24,1.47,.85,.11) alternate infinite;
+  background: linear-gradient(45deg, #2caa52, #3598a5, #26aa8d, #a947e2);
+	background-size: 400% 400%;
   margin-bottom: 24px;
   padding: 4px 0 0 0;
   min-height: 250px;
@@ -359,6 +385,7 @@ main {
 }
 
 h5 {
+  animation: entranceTitle 1s ease-out forwards;
   color: #ffffff;
   text-shadow: 1px 1px 2px black;
   font-weight: bold;

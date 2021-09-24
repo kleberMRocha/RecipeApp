@@ -1,10 +1,15 @@
 <template>
   <div class="notification-body" ref="notification">
-    <font-awesome-icon :icon="
+    <div class="closebtn">
+      <button @click="closeNotification()">
+        x
+      </button>
+    </div>
+     <font-awesome-icon :icon="
       notificationsInfos.isFav 
         ? ['fa', 'heart'] 
         : ['fa', 'heart-broken']" 
-    />
+      />
     <div>
       <u> {{ notificationsInfos.meal ? notificationsInfos.meal.strMeal : '' }}</u>  has been
       {{ notificationsInfos.isFav ? 'added' : 'removed' }} to favorites!
@@ -22,17 +27,28 @@ export default {
       isVisible: false,
   };
 },
+  methods:{
+    timer(){
+      setTimeout(() => {
+               this.closeNotification();
+        }, 5000);
+    },
+    closeNotification(){
+    this.$refs.notification.classList = ['outAnimation'];
+    this.isVisible = false;
+  },
+  },
   watch: {
     notificationsInfos() {
-      if(this.isVisible) return;
+      clearTimeout(this.timer);
+      if(this.isVisible){
+        return;
+      }
       this.$refs.notification.classList = ['notification-body'];
       this.$refs.notification.style.display = 'flex';
       this.isVisible = true;
-      setTimeout(() => {
-             this.$refs.notification.classList = ['outAnimation'];
-             this.isVisible = false;
-      }, 5000);
-     
+      this.timer();
+    
     },
   },
   computed: {
@@ -72,7 +88,9 @@ export default {
   position: fixed;
   display: flex;
   justify-content: center;
+  text-align: center;
   align-items: center;
+  flex-wrap: wrap;
   animation: entrance ease-in-out .5s;
   z-index: 9999;
   max-width: 300px;
@@ -90,9 +108,11 @@ export default {
   padding: 8px;
   position: fixed;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  animation: out 50s;
+  text-align: center;
+  animation: out 60s ease-out forwards;
   z-index: 9999;
   max-width: 300px;
   width: 300px;
@@ -116,4 +136,21 @@ export default {
   font-size: 30px;
   margin: 0 8px;
 }
+
+.closebtn{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.closebtn > button{
+  background: none;
+  border: none;
+  color: gray;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 999999999;
+}
+
 </style>

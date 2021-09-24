@@ -1,7 +1,7 @@
 <template>
   <div class="favContainer">
     <h1 class="title-recipe">
-      {{ !meals ? 'You havent favored anything yet' : '' }}
+      {{ !meals.length ? 'Nothing here 😕' : '' }}
     </h1>
     <ul class="favList">
       <li v-for="meal in meals" v-bind:key="`${meal.idMeal}`">
@@ -9,7 +9,6 @@
           :meal="meal"
           @showModal="showModal"
           @showDetails="showDetails"
-          @notification="showNotification"
         />
       </li>
     </ul>

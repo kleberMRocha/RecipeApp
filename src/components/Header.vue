@@ -45,8 +45,17 @@ export default {
 </script>
 
 <style scoped>
+@keyframes antrance{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
 .main_header {
   margin-top: 4px;
+  animation: antrance 1s ease-in;
 }
 .menuMobile {
   display: none;
@@ -106,7 +115,7 @@ ul li a:hover {
     flex-direction: column;
     position: absolute;
     left: 0;
-    background: #32523fe1;
+    background: transparent;
     z-index: 9999;
     border-radius: 8px;
     animation: scale 0.3s ease-in-out;
