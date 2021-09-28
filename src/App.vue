@@ -150,7 +150,7 @@ export default {
           }
 
           this.isLoading = false;
-          this.info = 'Could not find recipe with this name';
+          this.info = 'Could not find recipe with this name 😔';
         })
         .catch(() => (this.info = 'Houve um erro inesperado'));
     },
@@ -324,7 +324,7 @@ export default {
   color: #ffffff;
   padding: 4%;
   border-radius: 8px;
-  background: url('./assets/bg.png'), #689f77;
+  background: #689f77;
   background-repeat: repeat-y;
 }
 
@@ -452,7 +452,19 @@ h5 {
   right: 300px;
 }
 
+@keyframes entrance{
+  0%{
+    opacity: 0;
+    transform:translateY(20px) ;
+  }
+  100%{
+    opacity: 1;
+    transform:translateY(0px) ;
+  }
+}
+
 .info {
+  animation: entrance 1s;
   text-align: center;
   background-color: white;
   color: #689f77;
@@ -460,5 +472,7 @@ h5 {
   font-weight: bold;
   margin: 90px auto;
   padding: 16px;
+  border-radius: 50px;
+  box-shadow: 3px 3px 3px;
 }
 </style>
