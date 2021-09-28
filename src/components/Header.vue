@@ -1,17 +1,19 @@
 <template>
-  <header class="main_header">
-    <div>
+  <header class="main_header" id="main-header">
+    <div data-id="menuList">
       <button
+        data-id="menuList"
         class="menuMobile"
         ref="MainMenuMobile"
         @click="isVisible = !isVisible"
       >
-        <font-awesome-icon icon="bars" />
+        <font-awesome-icon icon="bars" data-id="menuList" />
       </button>
     </div>
-    <nav :class="!isVisible ? 'headerMain' : 'hidden'">
-      <ul>
+    <nav :class="!isVisible ? 'headerMain' : 'hidden'" id="mobile-nav">
+      <ul data-id="menuList">
         <li
+          data-id="menuList"
           class="menuLink"
           v-for="(link, index) in links"
           :key="`${index}-${link}`"
@@ -41,6 +43,19 @@ export default {
   props: {
     links: Array,
   },
+  mounted(){
+   let app = this.$root.$el;
+   app.addEventListener('click', (event) => {
+   const elementDataId = (event.target.parentNode.dataset.id);
+
+     if(!this.isVisible){
+       elementDataId 
+        ? this.isVisible = false 
+        : this.isVisible = true;
+     }
+    
+   });
+  }
 };
 </script>
 
@@ -54,6 +69,7 @@ export default {
   }
 }
 .main_header {
+  cursor: pointer;
   margin-top: 4px;
   animation: antrance 1s ease-in;
 }
