@@ -8,7 +8,7 @@
     </div>
 
     <div class="imgContainer">
-      <img :src="meal.strMealThumb" :alt="meal.strMeal" />
+      <img :src="meal.strMealThumb" :alt="meal.strMeal" loading="lazy" />
     </div>
 
     <div class="options">
