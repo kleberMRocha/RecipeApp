@@ -80,7 +80,6 @@ input {
   color: #e36153;
 }
 
-
 @media (max-width: 800px) {
   .logo {
     width: 150px;
