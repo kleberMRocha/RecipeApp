@@ -22,6 +22,7 @@
             :href="link.url"
             :target="link.blank ? '_blank' : '_self'"
             rel="noopener noreferrer"
+            :class="isCurrentPage(link.url)"
           >
             <font-awesome-icon :icon="link.icon" />
             {{ link.title }}</a
@@ -43,37 +44,39 @@ export default {
   props: {
     links: Array,
   },
-  mounted(){
-   let app = this.$root.$el;
-   app.addEventListener('click', (event) => {
-   const elementDataId = (event.target.parentNode.dataset.id);
+  methods: {
+    isCurrentPage(path) {
+      return this.$route.fullPath === path.substring(2) ? 'activeLink' : '';
+    },
+  },
+  mounted() {
+    let app = this.$root.$el;
+    app.addEventListener('click', (event) => {
+      const elementDataId = event.target.parentNode.dataset.id;
 
-     if(!this.isVisible){
-       elementDataId 
-        ? this.isVisible = false 
-        : this.isVisible = true;
-     }
-    
-   });
-  }
+      if (!this.isVisible) {
+        elementDataId ? (this.isVisible = false) : (this.isVisible = true);
+      }
+    });
+  },
 };
 </script>
 
 <style scoped>
-@keyframes antrance{
-  from{
+@keyframes antrance {
+  from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 1;
   }
 }
 .main_header {
-  background:  #e9e9e95b;
+  background: #e9e9e95b;
   border-radius: 50px;
   cursor: pointer;
   padding: 2px;
-  margin: 4px  50px  50px  50px;
+  margin: 4px 50px 50px 50px;
   animation: antrance 1s ease-in;
 }
 .menuMobile {
@@ -102,9 +105,13 @@ ul li a:hover {
   color: #32523f;
 }
 
+.activeLink {
+  color: #32523f;
+}
+
 @media (max-width: 800px) {
-  ul{
-      background: linear-gradient(45deg, #2caa52d8, #3598a5);
+  ul {
+    background: linear-gradient(45deg, #2caa52d8, #3598a5);
   }
   ul li:hover {
     background: #d5ffe63f;
@@ -122,7 +129,7 @@ ul li a:hover {
     color: #fffefa;
   }
 
-  .main_header{
+  .main_header {
     background: transparent;
   }
 

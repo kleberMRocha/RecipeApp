@@ -8,7 +8,7 @@
     >
       <div v-if="details" class="details_container">
         <div class="header-modal">
-          <h3 class="details_title"> 🍔 How to Make | {{ details.strMeal }}</h3>
+          <h3 class="details_title">🍔 How to Make | {{ details.strMeal }}</h3>
           <button @click="closeModal" class="closeModal">X</button>
         </div>
 
@@ -96,7 +96,7 @@
     </keep-alive>
     <router-view />
     <footer>
-    <small> Made with 💚 {{ getFullYear }} </small> 
+      <small> Made with 💚 {{ getFullYear }} </small>
     </footer>
   </div>
 </template>
@@ -111,7 +111,7 @@ import Notication from '../src/components/Notification.vue';
 import { mapState } from 'vuex';
 import { axios } from './services/index';
 
-import {mapMutations} from './vuex/nameSpaceNotification';
+import { mapMutations } from './vuex/nameSpaceNotification';
 
 export default {
   name: 'App',
@@ -215,7 +215,7 @@ export default {
     routeName() {
       return this.$route.name;
     },
-    getFullYear: () => new Date().getFullYear()
+    getFullYear: () => new Date().getFullYear(),
   },
 };
 </script>
@@ -251,34 +251,35 @@ export default {
 
   to {
     opacity: 1;
-     transform: translateY(0px);
+    transform: translateY(0px);
   }
 }
 
 @keyframes gradient {
-    0% {
-        background-position-x:  0%;
-    }
-    50% {
-        background-position-x: 75%;
-    }
-    100% {
-        background-position-x: 100%;
-    }
+  0% {
+    background-position-x: 0%;
+  }
+  50% {
+    background-position-x: 75%;
+  }
+  100% {
+    background-position-x: 100%;
+  }
 }
 
 .container {
   position: relative;
-  animation: gradient 10s cubic-bezier(.24,1.47,.85,.11) alternate infinite;
+  animation: gradient 10s cubic-bezier(0.24, 1.47, 0.85, 0.11) alternate
+    infinite;
   background: linear-gradient(45deg, #2caa52, #3598a5, #26aa8d, #a947e2);
-	background-size: 400% 400%;
+  background-size: 400% 400%;
   margin-bottom: 24px;
   padding: 4px 0 0 0;
   min-height: 250px;
   max-height: 500px;
 }
-.source{
-text-align: center;
+.source {
+  text-align: center;
 }
 
 .header-modal {
@@ -345,36 +346,33 @@ text-align: center;
   background: #689f77;
 }
 
-
-
-.ingredients{
-grid-row-start: 2;
-grid-row-start: 3;
+.ingredients {
+  grid-row-start: 2;
+  grid-row-start: 3;
 }
 
-.downloadContainer{
-grid-row-start: 2;
-grid-row-start: 3;
-grid-column-start: 2;
+.downloadContainer {
+  grid-row-start: 2;
+  grid-row-start: 3;
+  grid-column-start: 2;
 }
 
-.strInstructions_details{
-grid-column-start: 2;
-grid-row-start: 1;
-grid-row-end: 3;
+.strInstructions_details {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
 
-.strMealThumb{
-max-width: 200px;
-border-radius: 8px;
+.strMealThumb {
+  max-width: 200px;
+  border-radius: 8px;
 }
 
 .ingredients {
   padding: 8px;
-  max-height: 200px;
+  max-height: 150px;
   margin: 16px 0;
   overflow-y: scroll;
-
 }
 
 .download {
@@ -439,7 +437,7 @@ h5 {
   line-height: 50px;
 }
 
-footer{
+footer {
   display: grid;
   place-items: center;
   text-align: center;
@@ -450,17 +448,17 @@ footer{
 }
 
 @media (max-width: 800px) {
-  .strMealThumb{
-  display: none;
+  .strMealThumb {
+    display: none;
   }
   .details_title {
     font-size: 16px;
     padding: 0 8px;
     white-space: nowrap;
   }
-  .closeModal{
-   width: 30px;
-   height: 30px;
+  .closeModal {
+    width: 30px;
+    height: 30px;
   }
   .fav-title {
     padding-top: 50px;
@@ -486,14 +484,14 @@ footer{
   .container {
     margin-bottom: 50px;
   }
-  .strInstructions{
-  display: flex;
-  flex-direction: column;
-  max-height: 100%;
+  .strInstructions {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
   }
-  .strInstructions_details{
-  max-height: 60px;
-  border-radius: 0px;
+  .strInstructions_details {
+    max-height: 60px;
+    border-radius: 0px;
   }
 }
 
@@ -524,14 +522,14 @@ footer{
   right: 300px;
 }
 
-@keyframes entrance{
-  0%{
+@keyframes entrance {
+  0% {
     opacity: 0;
-    transform:translateY(20px) ;
+    transform: translateY(20px);
   }
-  100%{
+  100% {
     opacity: 1;
-    transform:translateY(0px) ;
+    transform: translateY(0px);
   }
 }
 
