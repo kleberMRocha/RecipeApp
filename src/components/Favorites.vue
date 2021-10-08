@@ -53,6 +53,7 @@ export default {
 }
 
 .favContainer {
+  min-height: calc(100vh - 278px);
   background-color: #ebfff0;
   border: white solid 4px;
   margin: 8px;
@@ -62,6 +63,7 @@ export default {
   border-radius: 16px;
   padding: 16px;
   filter: brightness(0.9);
+  box-shadow: 1px 1px 5px rgb(177, 177, 177);
 }
 .favContainer:hover {
   filter: brightness(1);

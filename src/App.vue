@@ -8,11 +8,12 @@
     >
       <div v-if="details" class="details_container">
         <div class="header-modal">
-          <h3 class="details_title">{{ details.strMeal }}</h3>
+          <h3 class="details_title"> 🍔 How to Make | {{ details.strMeal }}</h3>
           <button @click="closeModal" class="closeModal">X</button>
         </div>
 
         <div class="strInstructions">
+          <img :src="details.strMealThumb" class="strMealThumb" />
           <div class="ingredients">
             <h4>ingredients</h4>
             <ul>
@@ -25,11 +26,10 @@
               </li>
             </ul>
           </div>
-
           <p class="strInstructions_details">
             {{ details.strInstructions }}
           </p>
-          <div>
+          <div class="downloadContainer">
             <button
               type="button"
               class="download"
@@ -40,14 +40,14 @@
           </div>
         </div>
 
-        <p>
+        <p class="source">
           <a
             :href="details.strSource"
             target="_blank"
             rel="noopener noreferrer"
             class="details_src"
           >
-            Fonte
+            Source
           </a>
         </p>
       </div>
@@ -95,6 +95,9 @@
       </ul>
     </keep-alive>
     <router-view />
+    <footer>
+    <small> Made with 💚 {{ getFullYear }} </small> 
+    </footer>
   </div>
 </template>
 
@@ -212,6 +215,7 @@ export default {
     routeName() {
       return this.$route.name;
     },
+    getFullYear: () => new Date().getFullYear()
   },
 };
 </script>
@@ -273,6 +277,9 @@ export default {
   min-height: 250px;
   max-height: 500px;
 }
+.source{
+text-align: center;
+}
 
 .header-modal {
   display: flex;
@@ -286,8 +293,12 @@ export default {
 }
 .strInstructions_details {
   margin: 16px 0;
-  max-height: 120px;
+  padding: 8px;
+  max-height: 100%;
   overflow-y: scroll;
+  background: #deebea;
+  border-radius: 16px;
+  color: #093128;
 }
 .details_container h4 {
   font-size: 25px;
@@ -318,20 +329,52 @@ export default {
   margin: 18px;
 }
 .strInstructions {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-column-gap: 80px;
+  grid-row-gap: 30px;
+  place-items: center stretch;
   margin: 0 auto;
-  line-height: 150%;
-  max-width: 90%;
+  line-height: 120%;
+  max-width: 80%;
+  max-height: 400px;
   color: #ffffff;
   padding: 4%;
   border-radius: 8px;
   background: #689f77;
-  background-repeat: repeat-y;
+}
+
+
+
+.ingredients{
+grid-row-start: 2;
+grid-row-start: 3;
+}
+
+.downloadContainer{
+grid-row-start: 2;
+grid-row-start: 3;
+grid-column-start: 2;
+}
+
+.strInstructions_details{
+grid-column-start: 2;
+grid-row-start: 1;
+grid-row-end: 3;
+}
+
+.strMealThumb{
+max-width: 200px;
+border-radius: 8px;
 }
 
 .ingredients {
+  padding: 8px;
   max-height: 200px;
   margin: 16px 0;
   overflow-y: scroll;
+
 }
 
 .download {
@@ -367,7 +410,8 @@ main {
 .recipesContainer {
   display: flex;
   width: 80%;
-  margin: 0 auto;
+  min-height: calc(100vh - 273px);
+  margin: 48px auto;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -395,9 +439,28 @@ h5 {
   line-height: 50px;
 }
 
+footer{
+  display: grid;
+  place-items: center;
+  text-align: center;
+  height: 50px;
+  background: #5f977096;
+  color: #363535;
+  margin-top: 8px;
+}
+
 @media (max-width: 800px) {
+  .strMealThumb{
+  display: none;
+  }
   .details_title {
-    font-size: 30px;
+    font-size: 16px;
+    padding: 0 8px;
+    white-space: nowrap;
+  }
+  .closeModal{
+   width: 30px;
+   height: 30px;
   }
   .fav-title {
     padding-top: 50px;
@@ -422,6 +485,15 @@ h5 {
   }
   .container {
     margin-bottom: 50px;
+  }
+  .strInstructions{
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  }
+  .strInstructions_details{
+  max-height: 60px;
+  border-radius: 0px;
   }
 }
 

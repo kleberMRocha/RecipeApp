@@ -69,8 +69,11 @@ export default {
   }
 }
 .main_header {
+  background:  #e9e9e95b;
+  border-radius: 50px;
   cursor: pointer;
-  margin-top: 4px;
+  padding: 2px;
+  margin: 4px  50px  50px  50px;
   animation: antrance 1s ease-in;
 }
 .menuMobile {
@@ -117,6 +120,10 @@ ul li a:hover {
     font: bold;
     font-weight: bold;
     color: #fffefa;
+  }
+
+  .main_header{
+    background: transparent;
   }
 
   @keyframes scale {

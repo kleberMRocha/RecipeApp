@@ -136,12 +136,14 @@ table {
 ::-webkit-scrollbar-track-piece {
   background-color: #eee;
   border-left: 1px solid #ccc;
+  border-radius: 20px; 
 }
 
 /* Cor do indicador de rolagem */
 ::-webkit-scrollbar-thumb:vertical,
 ::-webkit-scrollbar-thumb:horizontal {
-  background-color: #bac0c4;
+  background-color: #6c756a;
+  border-radius: 20px; 
 }
 
 /* Cor do indicador de rolagem - ao passar o mouse */
