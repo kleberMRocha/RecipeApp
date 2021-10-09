@@ -5,9 +5,9 @@ import notifications from './modules/notifications';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  modules:{
-    notifications:{
-      namespaced:true,
+  modules: {
+    notifications: {
+      namespaced: true,
       ...notifications
     }
   },
@@ -38,7 +38,7 @@ const store = new Vuex.Store({
         blank: true,
       }
     ],
-    favMeals: JSON.parse(localStorage.getItem('@RecipesApp')),
+    favMeals: JSON.parse(localStorage.getItem('@RecipesApp')) || [],
     modalVisible: false,
     selectMeal: 'VVnZd8A84z4',
     details: null,
@@ -60,6 +60,13 @@ const store = new Vuex.Store({
       state.details = info;
     },
   },
+  actions: {
+    clearFavorites({ commit, state }) {
+      if (!state.favMeals.length) return;
+      localStorage.setItem('@RecipesApp', JSON.stringify([]));
+      commit('updateFavMeals', []);
+    }
+  }
 });
 
 export default store;

@@ -69,7 +69,22 @@
         <h5 v-if="routeName !== 'favoritos'">
           Search Recipes from Around the World
         </h5>
-        <h5 class="fav-title" v-else>Your Favorite Recipes</h5>
+        <div v-else class="fav-container">
+          <div class="confirm" v-if="confirm">
+            <p>Tem certeza que desja limpar os favoritos?</p>
+            <button type="button" @click="() => handleConfirmation('confirm')">
+              Confirmar
+            </button>
+            <button type="button" @click="() => handleConfirmation('cancel')">
+              Cancelar
+            </button>
+          </div>
+          <h5 class="fav-title">Your Favorite Recipes</h5>
+          <button class="fav-btn-clear" @click="handleConfirmation">
+            <font-awesome-icon :icon="['fa', 'heart-broken']" /> Limpar
+            Favoritos
+          </button>
+        </div>
       </main>
 
       <InputSearch
@@ -108,7 +123,7 @@ import FoodCard from './components/FoodCard.vue';
 import Loader from './components/Loader';
 import modal from '../src/mixin/modal';
 import Notication from '../src/components/Notification.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { axios } from './services/index';
 
 import { mapMutations } from './vuex/nameSpaceNotification';
@@ -127,10 +142,12 @@ export default {
       meals: null,
       info: '',
       isLoading: false,
+      confirm: false,
     };
   },
   mixins: [modal],
   methods: {
+    ...mapActions(['clearFavorites']),
     ...mapMutations(['setNotificationsInfos']),
     getSearchValues: function(search) {
       if (search.length < 2) return;
@@ -203,6 +220,32 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    async handleClear() {
+      this.isLoading = true;
+      await this.clearFavorites();
+      this.isLoading = false;
+    },
+    async handleConfirmation(action) {
+      if (this.confirm && action === 'cancel') {
+        this.confirm = false;
+        return;
+      }
+
+      if (this.confirm && action === 'confirm') {
+        await this.handleClear();
+        this.confirm = false;
+
+        this.setNotificationsInfos({
+          meal: { strMeal: 'All meals' },
+          isFav: false,
+        });
+
+        return;
+      }
+
+      this.confirm = true;
+      return;
     },
   },
   computed: {
@@ -422,8 +465,30 @@ main {
 .logo {
   width: 250px;
 }
+
+.fav-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
 .fav-title {
-  padding-top: 80px;
+  padding-top: 20px 0;
+}
+
+.fav-btn-clear {
+  margin-top: 8px;
+  border: #ffffff 2px solid;
+  background: none;
+  width: 100%;
+  cursor: pointer;
+  color: #ffffff;
+  height: 48px;
+  font-weight: bold;
+  transition: 0.5s;
+  z-index: 999;
 }
 
 h5 {
@@ -544,5 +609,43 @@ footer {
   padding: 16px;
   border-radius: 50px;
   box-shadow: 3px 3px 3px;
+}
+
+.confirm {
+  display: flex;
+  top: 0;
+  margin: 8px;
+  right: 0;
+  justify-content: center;
+  flex-direction: column;
+  background: rgb(219, 219, 217);
+  border-radius: 5px;
+  padding: 8px;
+  position: fixed;
+  z-index: 999999;
+}
+
+.confirm > p {
+  margin: 4px 0;
+  font-weight: bold;
+}
+.confirm button {
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+}
+
+.confirm button:hover {
+  filter: opacity(0.9);
+}
+
+.confirm button:nth-child(2) {
+  background: rgb(199, 147, 4);
+  color: white;
+  font-weight: bold;
+}
+
+.confirm > button + button {
+  margin: 4px 0;
 }
 </style>
