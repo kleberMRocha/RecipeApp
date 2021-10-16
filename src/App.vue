@@ -110,9 +110,7 @@
       </ul>
     </keep-alive>
     <router-view />
-    <footer>
-      <small> Made with 💚 {{ getFullYear }} </small>
-    </footer>
+    <Footer :displayYear="getFullYear" />
   </div>
 </template>
 
@@ -121,6 +119,7 @@ import InputSearch from './components/InputSearch.vue';
 import Header from './components/Header.vue';
 import FoodCard from './components/FoodCard.vue';
 import Loader from './components/Loader';
+import Footer from './components/Footer.vue';
 import modal from '../src/mixin/modal';
 import Notication from '../src/components/Notification.vue';
 import { mapState, mapActions } from 'vuex';
@@ -136,6 +135,7 @@ export default {
     FoodCard,
     Notication,
     Loader,
+    Footer,
   },
   data() {
     return {
@@ -451,7 +451,7 @@ main {
 .recipesContainer {
   display: flex;
   width: 80%;
-  min-height: calc(100vh - 273px);
+  min-height: calc(100vh - 200px);
   margin: 48px auto;
   flex-wrap: wrap;
   justify-content: center;
@@ -500,16 +500,6 @@ h5 {
   text-align: left;
   max-width: 500px;
   line-height: 50px;
-}
-
-footer {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  height: 50px;
-  background: #5f977096;
-  color: #363535;
-  margin-top: 8px;
 }
 
 @media (max-width: 800px) {
