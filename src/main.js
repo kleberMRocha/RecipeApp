@@ -17,6 +17,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 
 import router from '../routes/router';
+import './registerServiceWorker'
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
